@@ -1,6 +1,8 @@
 package main;
 
-public class PointCoord {
+import java.awt.Point;
+
+public class PointCoord implements IPoints{
     private int x;
     private int y;
 
@@ -9,9 +11,9 @@ public class PointCoord {
         y = 0;
     }
 
-    public PointCoord(int a, int b) {
-        x = a;
-        y = b;
+    public void point_to_PointCoord(Point pt) {
+        this.x = pt.x;
+        this.y = pt.y;
     }
 
     public void set_x(int n) {
@@ -28,5 +30,10 @@ public class PointCoord {
 
     public int get_y() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return ("["+ x + "," + y +"]");
     }
 }
