@@ -1,5 +1,7 @@
 package main;
 
+import main.interfaces.IPoints;
+import main.interfaces.IShapes;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.interfaces.IApplicationState;

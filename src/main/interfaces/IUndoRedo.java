@@ -1,4 +1,4 @@
-package main;
+package main.interfaces;
 
 public interface IUndoRedo {
     void undo();

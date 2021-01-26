@@ -1,8 +1,10 @@
 package main;
 
+import main.interfaces.IPoints;
+
 import java.awt.Point;
 
-public class PointCoord implements IPoints{
+public class PointCoord implements IPoints {
     private int x;
     private int y;
 

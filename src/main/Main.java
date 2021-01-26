@@ -1,7 +1,7 @@
 package main;
-
+import controller.*;
 import controller.IJPaintController;
-import controller.JPaintController;
+import main.interfaces.IShapesRepository;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;

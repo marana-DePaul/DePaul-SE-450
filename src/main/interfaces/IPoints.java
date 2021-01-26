@@ -1,4 +1,4 @@
-package main;
+package main.interfaces;
 
 import java.awt.Point;
 

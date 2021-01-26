@@ -1,5 +1,8 @@
 package main;
 
+import main.interfaces.ICommands;
+import main.interfaces.IPoints;
+import main.interfaces.IShapesRepository;
 import model.MouseMode;
 import model.interfaces.IApplicationState;
 import java.awt.event.MouseAdapter;

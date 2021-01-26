@@ -1,7 +1,6 @@
-package main;
+package main.interfaces;
 
 public interface IShapesRepository {
-    boolean isEmpty();
     void addShape(IShapes shape);
     IShapes removeShape();
     int getNumItems();

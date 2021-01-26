@@ -1,5 +1,7 @@
 package main;
 
+import main.interfaces.IShapes;
+import main.interfaces.IShapesDrawer;
 import view.interfaces.PaintCanvasBase;
 import java.awt.Graphics2D;
 import java.awt.Color;

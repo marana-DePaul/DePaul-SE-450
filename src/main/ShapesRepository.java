@@ -1,5 +1,8 @@
 package main;
 
+import main.interfaces.IShapes;
+import main.interfaces.IShapesDrawer;
+import main.interfaces.IShapesRepository;
 import view.interfaces.PaintCanvasBase;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -12,10 +15,6 @@ public class ShapesRepository implements IShapesRepository {
     public ShapesRepository(PaintCanvasBase canvas) {
         shapesList = new ArrayList<IShapes>();
         this.canvas = canvas;
-    }
-
-    public boolean isEmpty() {
-        return shapesList.isEmpty();
     }
 
     // adds a shape, then tells ShapesDrawer to draw all the shapes in the list

@@ -1,5 +1,8 @@
 package main;
 
+import main.interfaces.IPoints;
+import main.interfaces.IShapes;
+import main.interfaces.IShapesFactory;
 import model.interfaces.IApplicationState;
 
 public class ShapesFactory implements IShapesFactory {

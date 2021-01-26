@@ -1,5 +1,6 @@
 package main;
 
+import main.interfaces.*;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
 
