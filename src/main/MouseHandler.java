@@ -28,7 +28,7 @@ public class MouseHandler extends MouseAdapter {
         endCoord.updateCoord(e.getPoint());
         ICommands command;
 
-        // if in draw mode, invoke the method to draw the shape
+        // if in draw mode, create the shape
         if (appState.getActiveMouseMode() == MouseMode.DRAW) {
             command = new CreateShapeCommand(startCoord,endCoord,appState,shapesList);
             command.run();

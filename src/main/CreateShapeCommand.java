@@ -1,5 +1,6 @@
 package main;
 
+import model.ShapeType;
 import model.interfaces.IApplicationState;
 
 public class CreateShapeCommand implements ICommands {
@@ -20,8 +21,11 @@ public class CreateShapeCommand implements ICommands {
     public void run() {
         // create the shape, add it to the shape list
         IShapesFactory shapeFactory = new ShapesFactory();
-        IShapes createdShape = shapeFactory.createShape(startPt, endPt, appState);
-        shapeList.addShape(createdShape);
+
+        if (appState.getActiveShapeType() == ShapeType.RECTANGLE) {
+            IShapes createdShape = shapeFactory.createRectangle(startPt, endPt, appState);
+            shapeList.addShape(createdShape);
+        }
     }
 
 }

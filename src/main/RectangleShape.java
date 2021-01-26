@@ -7,14 +7,14 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
-public class Shapes implements IShapes {
+public class RectangleShape implements IShapes {
     protected PointCoord startPt;
     protected PointCoord endPt;
     protected ShapeColor primaryColor;
     protected ShapeColor secondaryColor;
     protected ShapeShadingType shadingType;
 
-    public Shapes () {
+    public RectangleShape () {
         startPt = new PointCoord();
         endPt   = new PointCoord();
         primaryColor   = ShapeColor.GREEN;
@@ -22,7 +22,7 @@ public class Shapes implements IShapes {
         shadingType = ShapeShadingType.FILLED_IN;
     }
 
-    public Shapes (IPoints startPt, IPoints endPt, IApplicationState appState) {
+    public RectangleShape (IPoints startPt, IPoints endPt, IApplicationState appState) {
         this.startPt = new PointCoord();
         this.startPt.set_x(startPt.get_x());
         this.startPt.set_y(startPt.get_y());

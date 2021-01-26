@@ -19,7 +19,7 @@ public class ShapesRepository implements IShapesRepository {
         return shapesList.isEmpty();
     }
 
-    // add the new shape, then draw it
+    // adds a shape, then tells ShapesDrawer to draw the new shape
     public void addShape(IShapes shape) {
         if (shape == null) throw new IllegalArgumentException();
         shapesList.add(shape);

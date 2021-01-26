@@ -13,8 +13,8 @@ public class ShapesDrawer implements IShapesDrawer {
     }
 
     public void drawAllShapes() {
-        for (IShapes x : shapesList) {
-            x.drawShape(canvasBase);
+        for (IShapes shape : shapesList) {
+            shape.drawShape(canvasBase);
         }
     }
 
