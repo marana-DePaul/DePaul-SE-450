@@ -1,48 +1,40 @@
 package main;
 
 import model.MouseMode;
-import model.ShapeType;
 import model.interfaces.IApplicationState;
-import view.interfaces.PaintCanvasBase;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MouseHandler extends MouseAdapter {
-    private IPoints startCoord;
-    private IPoints endCoord;
-    private PaintCanvasBase canvasBase;
-    private IApplicationState appState;
+    private final IPoints startCoord;
+    private final IPoints endCoord;
+    private final IApplicationState appState;
+    private final IShapesRepository shapesList;
 
-    public MouseHandler() {
+    public MouseHandler(IApplicationState state, IShapesRepository shapesList) {
         startCoord = new PointCoord();
         endCoord   = new PointCoord();
-    }
-
-    public MouseHandler(PaintCanvasBase canvas, IApplicationState state) {
-        startCoord = new PointCoord();
-        endCoord   = new PointCoord();
-        canvasBase = canvas;
         appState   = state;
+        this.shapesList = shapesList;
     }
 
     @Override
     public void mousePressed(MouseEvent e){
-        startCoord.point_to_PointCoord(e.getPoint());
+        startCoord.updateCoord(e.getPoint());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        endCoord.point_to_PointCoord(e.getPoint());
+        endCoord.updateCoord(e.getPoint());
+        ICommands command;
 
-        // if in draw mode, invoke the draw method for that shape
+        // if in draw mode, invoke the method to draw the shape
         if (appState.getActiveMouseMode() == MouseMode.DRAW) {
-            IShapes shape = new Shapes();
-
-            if (appState.getActiveShapeType() == ShapeType.RECTANGLE) {
-                shape = new RectangleShape(startCoord,endCoord,appState);
-                shape.drawShape(canvasBase);
-            }
+            command = new CreateShapeCommand(startCoord,endCoord,appState,shapesList);
+            command.run();
         }
+
+        System.out.println("Number of Shapes in list -> " + shapesList.getNumItems());
 
     }
 }

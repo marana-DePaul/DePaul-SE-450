@@ -11,7 +11,8 @@ public class PointCoord implements IPoints{
         y = 0;
     }
 
-    public void point_to_PointCoord(Point pt) {
+    // method to update the coordinates using a Point
+    public void updateCoord(Point pt) {
         this.x = pt.x;
         this.y = pt.y;
     }

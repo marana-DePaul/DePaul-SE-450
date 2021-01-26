@@ -10,8 +10,6 @@ import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
 
-import java.awt.*;
-
 public class Main {
     public static void main(String[] args){
         PaintCanvasBase paintCanvas = new PaintCanvas();
@@ -21,9 +19,13 @@ public class Main {
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
 
+        // setting up shape repository
+        IShapesRepository shapesList = new ShapesRepository(paintCanvas);
+
         // setting up mouse interactions
-        MouseHandler mouseHandler = new MouseHandler(paintCanvas, appState);
+        MouseHandler mouseHandler = new MouseHandler(appState, shapesList);
         paintCanvas.addMouseListener(mouseHandler);
+
 
         // For example purposes only; remove all lines below from your final project.
         /*
