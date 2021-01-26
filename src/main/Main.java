@@ -26,7 +26,6 @@ public class Main {
         MouseHandler mouseHandler = new MouseHandler(appState, shapesList);
         paintCanvas.addMouseListener(mouseHandler);
 
-
         // For example purposes only; remove all lines below from your final project.
         /*
         try {

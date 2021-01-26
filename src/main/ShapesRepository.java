@@ -1,7 +1,6 @@
 package main;
 
 import view.interfaces.PaintCanvasBase;
-
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
@@ -19,18 +18,25 @@ public class ShapesRepository implements IShapesRepository {
         return shapesList.isEmpty();
     }
 
-    // adds a shape, then tells ShapesDrawer to draw the new shape
+    // adds a shape, then tells ShapesDrawer to draw all the shapes in the list
     public void addShape(IShapes shape) {
         if (shape == null) throw new IllegalArgumentException();
         shapesList.add(shape);
 
-        ShapesDrawer drawer = new ShapesDrawer(shapesList,canvas);
+        IShapesDrawer drawer = new ShapesDrawer(shapesList,canvas);
         drawer.drawAllShapes();
     }
 
+    // removes a shape, then tells ShapesDrawer to clear the canvas before redrawing the remaining shapes
     public IShapes removeShape() {
         if (shapesList.isEmpty()) throw new EmptyStackException();
-        return shapesList.remove(shapesList.size()-1);
+        IShapes delShape = shapesList.remove(shapesList.size()-1);
+
+        IShapesDrawer drawer = new ShapesDrawer(shapesList,canvas);
+        drawer.clearAllShapes();
+        drawer.drawAllShapes();
+
+        return delShape;
     }
 
     public int getNumItems() {
