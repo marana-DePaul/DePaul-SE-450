@@ -15,15 +15,7 @@ public class RectangleShape implements IShapes {
     protected ShapeColor primaryColor;
     protected ShapeColor secondaryColor;
     protected ShapeShadingType shadingType;
-
-    public RectangleShape () {
-        startPt = new PointCoord();
-        endPt   = new PointCoord();
-        primaryColor   = ShapeColor.GREEN;
-        secondaryColor = ShapeColor.ORANGE;
-        shadingType = ShapeShadingType.FILLED_IN;
-    }
-
+    
     public RectangleShape (IPoints startPt, IPoints endPt, IApplicationState appState) {
         this.startPt = new PointCoord();
         this.startPt.set_x(startPt.get_x());
