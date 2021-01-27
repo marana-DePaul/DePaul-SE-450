@@ -13,20 +13,26 @@ public class CommandHistory {
         redoStack.clear();
     }
 
-    public static void undo() {
-        if (!undoStack.isEmpty()) {
+    public static boolean undo() {
+        boolean status = !undoStack.isEmpty();
+
+        if (status) {
             IUndoRedo cmd = undoStack.pop();
             redoStack.push(cmd);
             cmd.undo();
         }
+        return status;
     }
 
-    public static void redo() {
+    public static boolean redo() {
+        boolean status = !redoStack.isEmpty();
+
         if (!redoStack.isEmpty()) {
             IUndoRedo cmd = redoStack.pop();
             undoStack.push(cmd);
             cmd.redo();
         }
+        return status;
     }
 
 }

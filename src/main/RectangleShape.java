@@ -17,20 +17,25 @@ public class RectangleShape implements IShapes {
     protected ShapeShadingType shadingType;
     
     public RectangleShape (IPoints startPt, IPoints endPt, IApplicationState appState) {
-        this.startPt = new PointCoord();
-        this.startPt.set_x(startPt.get_x());
-        this.startPt.set_y(startPt.get_y());
-
-        this.endPt = new PointCoord();
-        this.endPt.set_x(endPt.get_x());
-        this.endPt.set_y(endPt.get_y());
-
+        this.startPt = new PointCoord(startPt.get_x(), startPt.get_y());
+        this.endPt = new PointCoord(endPt.get_x(), endPt.get_y());
         primaryColor = appState.getActivePrimaryColor();
         secondaryColor = appState.getActiveSecondaryColor();
         shadingType = appState.getActiveShapeShadingType();
     }
 
+    public RectangleShape() {
+        startPt = new PointCoord(100,100);
+        endPt   = new PointCoord(400,400);
+        primaryColor = ShapeColor.GREEN;
+        secondaryColor = ShapeColor.ORANGE;
+        shadingType = ShapeShadingType.FILLED_IN;
+    }
+
     public void drawShape(PaintCanvasBase canvasBase) {
+        if (canvasBase == null)
+            throw new IllegalArgumentException();
+
         int width  = Math.abs(endPt.get_x() - startPt.get_x());
         int height = Math.abs(endPt.get_y() - startPt.get_y());
 
@@ -40,9 +45,14 @@ public class RectangleShape implements IShapes {
 
         // check the shading to decide how to draw the shape
         if (shadingType == ShapeShadingType.FILLED_IN) {
-            Graphics2D graphics2D = canvasBase.getGraphics2D();
-            graphics2D.setColor(Color.GREEN);
-            graphics2D.fillRect(startX,startY,width,height);
+            drawShape_Fill(canvasBase,startX,startY,width,height);
         }
+
+    }
+
+    private void drawShape_Fill(PaintCanvasBase canvasBase, int start, int end, int w, int h) {
+        Graphics2D graphics2D = canvasBase.getGraphics2D();
+        graphics2D.setColor(Color.GREEN);
+        graphics2D.fillRect(start,end,w,h);
     }
 }

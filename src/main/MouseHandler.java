@@ -15,19 +15,22 @@ public class MouseHandler extends MouseAdapter {
     private final IShapesRepository shapesList;
 
     public MouseHandler(IApplicationState state, IShapesRepository shapesList) {
-        startCoord = new PointCoord();
-        endCoord   = new PointCoord();
+        startCoord = new PointCoord(0,0);
+        endCoord   = new PointCoord(0,0);
         appState   = state;
         this.shapesList = shapesList;
     }
 
     @Override
     public void mousePressed(MouseEvent e){
+        if (e == null) throw new IllegalArgumentException();
         startCoord.updateCoord(e.getPoint());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (e == null) throw new IllegalArgumentException();
+
         endCoord.updateCoord(e.getPoint());
         ICommands command;
 

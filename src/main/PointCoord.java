@@ -8,9 +8,9 @@ public class PointCoord implements IPoints {
     private int x;
     private int y;
 
-    public PointCoord() {
-        x = 0;
-        y = 0;
+    public PointCoord(int xCoord, int yCoord) {
+        x = xCoord;
+        y = yCoord;
     }
 
     // method to update the coordinates using a Point
