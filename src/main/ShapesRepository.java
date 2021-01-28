@@ -6,7 +6,6 @@ import main.interfaces.IShapesRepository;
 import view.gui.PaintCanvas;
 import view.interfaces.PaintCanvasBase;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 
 public class ShapesRepository implements IShapesRepository {
@@ -34,7 +33,7 @@ public class ShapesRepository implements IShapesRepository {
 
     // removes a shape from end of list, then tells ShapesDrawer to clear the canvas and redraw all shapes
     public IShapes removeShape() {
-        if (shapesList.isEmpty()) throw new EmptyStackException();
+        if (shapesList.isEmpty()) throw new IllegalStateException();
         IShapes delShape = shapesList.remove(shapesList.size()-1);
 
         IShapesDrawer drawer = new ShapesDrawer(shapesList,canvas);
