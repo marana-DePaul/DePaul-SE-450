@@ -1,5 +1,6 @@
 package tests;
 
+
 import main.RectangleShape;
 import main.ShapesRepository;
 import main.interfaces.IShapes;
@@ -11,7 +12,9 @@ import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 
+
 public class ShapesRepositoryTEST {
+
 
     @Test
     public void testAddShapeSuccess() {
@@ -71,6 +74,7 @@ public class ShapesRepositoryTEST {
 
         assertEquals(testRepo.getNumItems(),0);
     }
+
 
 
 }

@@ -1,3 +1,7 @@
+// Michael Arana
+// DePaul University
+// SE 450 Winter 2021
+
 package main;
 import controller.*;
 import controller.IJPaintController;
