@@ -24,11 +24,17 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
         // create the shape, add it to the shape list
         IShapesFactory shapeFactory = new ShapesFactory();
 
-        if (appState.getActiveShapeType() == ShapeType.RECTANGLE) {
+        if (appState.getActiveShapeType() == ShapeType.RECTANGLE)
             createdShape = shapeFactory.createRectangle(startPt, endPt, appState);
-            shapeList.addShape(createdShape);
-            CommandHistory.add(this);
-        }
+
+        else if (appState.getActiveShapeType() == ShapeType.TRIANGLE)
+            createdShape = shapeFactory.createTriangle(startPt, endPt, appState);
+
+        else if (appState.getActiveShapeType() == ShapeType.ELLIPSE)
+            createdShape = shapeFactory.createEllipse(startPt, endPt, appState);
+
+        shapeList.addShape(createdShape);
+        CommandHistory.add(this);
     }
 
     @Override
