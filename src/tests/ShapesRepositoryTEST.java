@@ -31,6 +31,7 @@ public class ShapesRepositoryTEST {
         assertEquals(testRepo.getNumItems(),1);
     }
 
+
     @Test
     public void testAddShapeWithNullArgumentThrowsException() {
         PaintCanvasBase testCanvas = new PaintCanvas();

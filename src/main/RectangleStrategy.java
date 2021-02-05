@@ -23,7 +23,7 @@ public class RectangleStrategy implements IDrawStrategy {
         int startY = Math.min(start.get_y(), end.get_y());
 
         Graphics2D graphics2d = canvas.getGraphics2D();
-        graphics2d.setColor(Main.getColor(color1));
+        graphics2d.setColor(color1.getColor());
 
         if (shade == ShapeShadingType.FILLED_IN) {
             graphics2d.fillRect(startX, startY, width, height);
@@ -35,8 +35,9 @@ public class RectangleStrategy implements IDrawStrategy {
         else if (shade == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
             graphics2d.fillRect(startX, startY, width, height);
             graphics2d.setStroke(new BasicStroke(5));
-            graphics2d.setColor(Main.getColor(color2));
+            graphics2d.setColor(color2.getColor());
             graphics2d.drawRect(startX, startY, width, height);
         }
+
     }
 }

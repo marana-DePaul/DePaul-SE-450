@@ -19,7 +19,7 @@ public class TriangleStrategy implements IDrawStrategy {
         int[] yCoords = {start.get_y(), end.get_y(), end.get_y()};
 
         Graphics2D graphics2d = canvas.getGraphics2D();
-        graphics2d.setColor(Main.getColor(color1));
+        graphics2d.setColor(color1.getColor());
 
         if (shade == ShapeShadingType.FILLED_IN) {
             graphics2d.fillPolygon(xCoords,yCoords,3);
@@ -31,7 +31,7 @@ public class TriangleStrategy implements IDrawStrategy {
         else if (shade == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
             graphics2d.fillPolygon(xCoords,yCoords,3);
             graphics2d.setStroke(new BasicStroke(5));
-            graphics2d.setColor(Main.getColor(color2));
+            graphics2d.setColor(color2.getColor());
             graphics2d.drawPolygon(xCoords, yCoords, 3);
         }
     }
