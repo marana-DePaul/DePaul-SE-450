@@ -5,6 +5,7 @@ import main.interfaces.IPoints;
 import main.interfaces.IShapesRepository;
 import model.MouseMode;
 import model.interfaces.IApplicationState;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -36,11 +37,10 @@ public class MouseHandler extends MouseAdapter {
 
         // if in draw mode, create the shape
         if (appState.getActiveMouseMode() == MouseMode.DRAW) {
+
             command = new CreateShapeCommand(startCoord,endCoord,appState,shapesList);
             command.run();
         }
-
-        System.out.println("Number of Shapes in list -> " + shapesList.getNumItems());
 
     }
 }

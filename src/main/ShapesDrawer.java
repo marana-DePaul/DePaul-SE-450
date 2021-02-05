@@ -8,20 +8,20 @@ import java.awt.Color;
 import java.util.List;
 
 public class ShapesDrawer implements IShapesDrawer {
-    final private List<IShapes> shapesList;
     final private PaintCanvasBase canvasBase;
 
-    public ShapesDrawer(List<IShapes> shapesList, PaintCanvasBase canvasBase) {
-        this.shapesList = shapesList;
+    public ShapesDrawer(PaintCanvasBase canvasBase) {
         this.canvasBase = canvasBase;
     }
 
-    public void drawAllShapes() {
+    @Override
+    public void drawAllShapes(List<IShapes> shapesList) {
         for (IShapes shape : shapesList) {
             shape.drawShape(canvasBase);
         }
     }
 
+    @Override
     public void clearAllShapes() {
         Graphics2D graphics2d = canvasBase.getGraphics2D();
         graphics2d.setColor(Color.WHITE);

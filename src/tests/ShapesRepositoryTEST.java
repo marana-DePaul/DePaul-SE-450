@@ -1,7 +1,7 @@
 package tests;
 
 
-import main.RectangleShape;
+import main.GenericShape;
 import main.ShapesRepository;
 import main.interfaces.IShapes;
 import main.interfaces.IShapesRepository;
@@ -15,7 +15,6 @@ import view.interfaces.PaintCanvasBase;
 
 public class ShapesRepositoryTEST {
 
-
     @Test
     public void testAddShapeSuccess() {
         // arrange
@@ -23,7 +22,7 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new RectangleShape();
+        IShapes testShape1 = new GenericShape();
 
         // act
         testRepo.addShape(testShape1);
@@ -51,8 +50,8 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new RectangleShape();
-        IShapes testShape2 = new RectangleShape();
+        IShapes testShape1 = new GenericShape();
+        IShapes testShape2 = new GenericShape();
 
         testRepo.addShape(testShape1);
         testRepo.addShape(testShape2);

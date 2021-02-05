@@ -13,24 +13,18 @@ public class PointCoord implements IPoints {
         y = yCoord;
     }
 
-    // method to update the coordinates using a Point
+    @Override
     public void updateCoord(Point pt) {
         this.x = pt.x;
         this.y = pt.y;
     }
 
-    public void set_x(int n) {
-        x = n;
-    }
-
-    public void set_y(int n) {
-        y = n;
-    }
-
+    @Override
     public int get_x() {
         return x;
     }
 
+    @Override
     public int get_y() {
         return y;
     }
