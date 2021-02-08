@@ -6,4 +6,8 @@ public interface IShapes {
 
     void drawShape(PaintCanvasBase canvasBase);
 
+    IPoints getStart();
+
+    IPoints getEnd();
+
 }

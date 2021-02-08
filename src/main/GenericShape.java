@@ -9,16 +9,16 @@ import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class GenericShape implements IShapes {
-    private PointCoord          startPt;
-    private PointCoord          endPt;
-    private ShapeColor          primaryColor;
-    private ShapeColor          secondaryColor;
-    private ShapeShadingType    shadingType;
-    private IDrawStrategy       shapeStrategy;
+    private IPoints           start;
+    private IPoints           end;
+    private ShapeColor        primaryColor;
+    private ShapeColor        secondaryColor;
+    private ShapeShadingType  shadingType;
+    private IDrawStrategy     shapeStrategy;
     
-    public GenericShape (IPoints startPt, IPoints endPt, IApplicationState appState, IDrawStrategy strategy) {
-        this.startPt        = new PointCoord(startPt.get_x(), startPt.get_y());
-        this.endPt          = new PointCoord(endPt.get_x(), endPt.get_y());
+    public GenericShape (IPoints start, IPoints end, IApplicationState appState, IDrawStrategy strategy) {
+        this.start = new PointCoord(start);
+        this.end = new PointCoord(end);
         this.primaryColor   = appState.getActivePrimaryColor();
         this.secondaryColor = appState.getActiveSecondaryColor();
         this.shadingType    = appState.getActiveShapeShadingType();
@@ -26,8 +26,8 @@ public class GenericShape implements IShapes {
     }
 
     public GenericShape() {
-        startPt = new PointCoord(100,100);
-        endPt   = new PointCoord(400,400);
+        start = new PointCoord(100,100);
+        end   = new PointCoord(400,400);
         primaryColor = ShapeColor.GREEN;
         secondaryColor = ShapeColor.ORANGE;
         shadingType = ShapeShadingType.FILLED_IN;
@@ -39,7 +39,17 @@ public class GenericShape implements IShapes {
         if (canvasBase == null)
             throw new IllegalArgumentException();
 
-        shapeStrategy.drawShapeType(startPt, endPt, shadingType, primaryColor, secondaryColor, canvasBase);
+        shapeStrategy.drawShapeType(start, end, shadingType, primaryColor, secondaryColor, canvasBase);
+    }
+
+    @Override
+    public IPoints getStart() {
+        return start;
+    }
+
+    @Override
+    public IPoints getEnd() {
+        return end;
     }
 
 }

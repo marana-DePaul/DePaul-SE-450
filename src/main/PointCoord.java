@@ -5,18 +5,22 @@ import main.interfaces.IPoints;
 import java.awt.Point;
 
 public class PointCoord implements IPoints {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public PointCoord(int xCoord, int yCoord) {
-        x = xCoord;
-        y = yCoord;
+        this.x = xCoord;
+        this.y = yCoord;
     }
 
-    @Override
-    public void updateCoord(Point pt) {
+    public PointCoord(Point pt) {
         this.x = pt.x;
         this.y = pt.y;
+    }
+
+    public PointCoord(IPoints pt) {
+        this.x = pt.get_x();
+        this.y = pt.get_y();
     }
 
     @Override

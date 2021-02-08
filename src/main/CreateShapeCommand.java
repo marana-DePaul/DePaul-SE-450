@@ -13,8 +13,8 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
 
     // appState will be used to determine future specific shape types
     public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapeList) {
-        this.startPt   = startPt;
-        this.endPt     = endPt;
+        this.startPt = startPt;
+        this.endPt = endPt;
         this.appState  = appState;
         this.shapeList = shapeList;
     }

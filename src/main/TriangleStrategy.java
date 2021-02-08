@@ -1,6 +1,7 @@
 package main;
 
 import main.interfaces.IDrawStrategy;
+import main.interfaces.IPoints;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import view.interfaces.PaintCanvasBase;
@@ -11,7 +12,7 @@ import java.awt.BasicStroke;
 public class TriangleStrategy implements IDrawStrategy {
 
     @Override
-    public void drawShapeType(PointCoord start, PointCoord end, ShapeShadingType shade, ShapeColor color1, ShapeColor color2, PaintCanvasBase canvas) {
+    public void drawShapeType(IPoints start, IPoints end, ShapeShadingType shade, ShapeColor color1, ShapeColor color2, PaintCanvasBase canvas) {
         if (start == null || end == null || shade == null || canvas == null)
             throw new IllegalArgumentException();
 
