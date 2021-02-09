@@ -53,9 +53,12 @@ public class MouseHandler extends MouseAdapter {
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.MOVE) {
-            System.out.println("I clicked move mode");
-        }
+            int deltaX = endCoord.get_x() - startCoord.get_x();
+            int deltaY = endCoord.get_y() - startCoord.get_y();
 
+            command = new MoveShapeCommand(deltaX, deltaY, selectedList, shapesList);
+            command.run();
+        }
 
         //System.out.println(shapesList.getNumItems());
     }

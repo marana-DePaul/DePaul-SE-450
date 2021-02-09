@@ -34,6 +34,16 @@ public class GenericShape implements IShapes {
         shapeStrategy = new RectangleStrategy();
     }
 
+    public GenericShape(IPoints start, IPoints end, IShapes shape) {
+        this.start = new PointCoord(start);
+        this.end = new PointCoord(end);
+        this.primaryColor = shape.getPrimaryColor();
+        this.secondaryColor = shape.getSecondaryColor();
+        this.shadingType = shape.getShadingType();
+        this.shapeStrategy = shape.getShapeStrategy();
+    }
+
+
     @Override
     public void drawShape(PaintCanvasBase canvasBase) {
         if (canvasBase == null)
@@ -52,4 +62,15 @@ public class GenericShape implements IShapes {
         return end;
     }
 
+    @Override
+    public ShapeColor getPrimaryColor() {return primaryColor;}
+
+    @Override
+    public ShapeColor getSecondaryColor() {return secondaryColor;}
+
+    @Override
+    public ShapeShadingType getShadingType() {return shadingType;}
+
+    @Override
+    public IDrawStrategy getShapeStrategy() {return  shapeStrategy;}
 }

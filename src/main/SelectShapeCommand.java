@@ -35,7 +35,7 @@ public class SelectShapeCommand implements ICommands {
                 selectedList.add(s);
             }
         }
-        System.out.println("objects selected -> " + selectedList.size());
+        //System.out.println("objects selected -> " + selectedList.size());
     }
 
     private boolean detectCollision(IShapes shape) {
