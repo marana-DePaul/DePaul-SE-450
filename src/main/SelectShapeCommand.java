@@ -13,12 +13,12 @@ public class SelectShapeCommand implements ICommands {
     final private List<IShapes> selectedList;
     final private IShapesRepository shapesList;
 
-    public SelectShapeCommand(IPoints startPt, IPoints endPt, List<IShapes> selectedList, IShapesRepository shapesList) {
-        if (selectedList == null || shapesList == null) throw new IllegalArgumentException();
+    public SelectShapeCommand(IPoints startPt, IPoints endPt, List<IShapes> current, IShapesRepository shapesList) {
+        if (current == null || shapesList == null) throw new IllegalArgumentException();
 
         this.collStart = startPt;
         this.collEnd = endPt;
-        this.selectedList = selectedList;
+        this.selectedList = current;
         this.shapesList = shapesList;
     }
 

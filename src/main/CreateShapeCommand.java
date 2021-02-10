@@ -34,6 +34,7 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
             createdShape = shapeFactory.createEllipse(startPt, endPt, appState);
 
         shapeList.addShape(createdShape);
+        //System.out.println("NumShapes-> " + shapeList.getNumItems());
         CommandHistory.add(this);
     }
 

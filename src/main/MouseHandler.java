@@ -17,14 +17,16 @@ public class MouseHandler extends MouseAdapter {
     private IPoints endCoord;
     private final IApplicationState appState;
     private final IShapesRepository shapesList;
-    private final List<IShapes> selectedList;
+    private final List<IShapes> selectList;
+    private final List<IShapes> prevSelected;
 
     public MouseHandler(IApplicationState state, IShapesRepository shapesList) {
         startCoord = new PointCoord(0,0);
         endCoord   = new PointCoord(0,0);
         appState   = state;
         this.shapesList = shapesList;
-        selectedList = new ArrayList<IShapes>();
+        selectList = new ArrayList<IShapes>();
+        prevSelected = new ArrayList<IShapes>();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class MouseHandler extends MouseAdapter {
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            command = new SelectShapeCommand(startCoord,endCoord,selectedList,shapesList);
+            command = new SelectShapeCommand(startCoord,endCoord,selectList,shapesList);
             command.run();
         }
 
@@ -56,10 +58,8 @@ public class MouseHandler extends MouseAdapter {
             int deltaX = endCoord.get_x() - startCoord.get_x();
             int deltaY = endCoord.get_y() - startCoord.get_y();
 
-            command = new MoveShapeCommand(deltaX, deltaY, selectedList, shapesList);
+            command = new MoveShapeCommand(deltaX, deltaY, selectList, prevSelected, shapesList);
             command.run();
         }
-
-        //System.out.println(shapesList.getNumItems());
     }
 }
