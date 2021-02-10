@@ -9,7 +9,7 @@ public interface IShapesRepository {
 
     IShapes removeShape();
 
-    int removeShape(IShapes item);
+    void removeShape(IShapes item);
 
     int getNumItems();
 

@@ -11,6 +11,7 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
     private List<IShapes> selectedList;
     private List<IShapes> prevSelected;
     private IShapesRepository shapesList;
+    private int numPrevSelected;
 
     public MoveShapeCommand (int deltaX, int deltaY, List<IShapes> selectedList, List<IShapes> prevSelected, IShapesRepository shapesList) {
         this.deltaX = deltaX;
@@ -18,10 +19,12 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
         this.selectedList = selectedList;
         this.prevSelected = prevSelected;
         this.shapesList = shapesList;
+        numPrevSelected = 0;
     }
 
     @Override
     public void run() {
+        if (selectedList == null) throw new IllegalStateException();
 
         List<IShapes> dummySelected = new ArrayList<>();
         for (IShapes s : selectedList) {
@@ -31,31 +34,46 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
         // for each shape in the selected list, update them with the delta values
         for (IShapes s : dummySelected) {
 
+            // add shape to the previously selected list
+            prevSelected.add(s);
+
             // since Shapes are immutable, have to clone them, pass in updated points.
             IPoints start = new PointCoord(deltaX + s.getStart().get_x(), deltaY + s.getStart().get_y());
             IPoints end   = new PointCoord(deltaX + s.getEnd().get_x(), deltaY + s.getEnd().get_y());
             IShapes deltaShape = new GenericShape(start, end, s);
 
-            // pulling selected shapes out of the shape repository, and adding in the modified ones
-            int shapesIndex = shapesList.removeShape(s);
-            shapesList.addShape(shapesIndex, deltaShape);
+            shapesList.removeShape(s);
+            shapesList.addShape(deltaShape);
 
             // update the selectedList
             selectedList.remove(s);
             selectedList.add(deltaShape);
         }
 
-        CommandHistory.add(this);
+        if (!selectedList.isEmpty())
+            CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        
+        for (IShapes s : selectedList) {
+            shapesList.removeShape(s);
+        }
+
+        for (IShapes s : prevSelected) {
+            shapesList.addShape(s);
+        }
     }
 
     @Override
     public void redo() {
+        for (IShapes s : prevSelected) {
+            shapesList.removeShape(s);
+        }
 
+        for (IShapes s : selectedList) {
+            shapesList.addShape(s);
+        }
     }
 
 }

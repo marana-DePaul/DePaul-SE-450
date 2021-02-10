@@ -55,19 +55,12 @@ public class ShapesRepository implements IShapesRepository {
 
     // removes the given shape item from the list. Returns the index of the deleted shape on success, -1 on failure.
     @Override
-    public int removeShape(IShapes item) {
+    public void removeShape(IShapes item) {
         if (shapesList.isEmpty()) throw new IllegalStateException();
 
-        int delIndex = shapesList.indexOf(item);
-
-        if (delIndex != -1) {
-            shapesList.remove(delIndex);
-
-            drawer.clearAllShapes();
-            drawer.drawAllShapes(shapesList);
-        }
-
-        return delIndex;
+        shapesList.remove(item);
+        drawer.clearAllShapes();
+        drawer.drawAllShapes(shapesList);
     }
 
     @Override
