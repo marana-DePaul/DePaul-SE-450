@@ -1,27 +1,20 @@
 package main;
 
 import main.interfaces.*;
-import view.gui.PaintCanvas;
+
 import view.interfaces.PaintCanvasBase;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShapesRepository implements IShapesRepository {
     final private List<IShapes> shapesList;
-    final private PaintCanvasBase canvas;
     final private IShapesDrawer drawer;
 
     public ShapesRepository(PaintCanvasBase canvas) {
         this.shapesList = new ArrayList<IShapes>();
-        this.canvas = canvas;
         this.drawer = new ShapesDrawer(canvas);
     }
 
-    public ShapesRepository() {
-        shapesList   = new ArrayList<IShapes>();
-        canvas       = new PaintCanvas();
-        drawer       = new ShapesDrawer(canvas);
-    }
 
     // adds a shape, then tells ShapesDrawer to draw all the shapes in the list
     @Override
@@ -29,14 +22,6 @@ public class ShapesRepository implements IShapesRepository {
         if (shape == null) throw new IllegalArgumentException();
 
         shapesList.add(shape);
-        drawer.drawAllShapes(shapesList);
-    }
-
-    @Override
-    public void addShape(int index, IShapes shape) {
-        if (shape == null || index < 0) throw new IllegalArgumentException();
-
-        shapesList.add(index,shape);
         drawer.drawAllShapes(shapesList);
     }
 

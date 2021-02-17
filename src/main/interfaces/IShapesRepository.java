@@ -5,8 +5,6 @@ import java.util.List;
 public interface IShapesRepository {
     void addShape(IShapes shape);
 
-    void addShape(int index, IShapes shape);
-
     IShapes removeShape();
 
     void removeShape(IShapes item);

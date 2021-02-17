@@ -75,6 +75,22 @@ public class ShapesRepositoryTEST {
         assertEquals(testRepo.getNumItems(),0);
     }
 
+    @Test
+    public void testRemoveShapeSpecifiedByParameterSuccess() {
+        PaintCanvasBase testCanvas = new PaintCanvas();
+        IGuiWindow testWindow = new GuiWindow(testCanvas);
+        IShapesRepository testRepo = new ShapesRepository(testCanvas);
+
+        IShapes testShape1 = new GenericShape();
+        IShapes testShape2 = new GenericShape();
+
+        testRepo.addShape(testShape1);
+        testRepo.addShape(testShape2);
+
+        testRepo.removeShape(testShape1);
+
+
+    }
 
 
 }
