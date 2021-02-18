@@ -5,10 +5,10 @@ import model.ShapeType;
 import model.interfaces.IApplicationState;
 
 public class CreateShapeCommand implements ICommands, IUndoRedo {
-    final private IPoints startPt;
-    final private IPoints endPt;
-    final private IApplicationState appState;
-    final private IShapesRepository shapeList;
+    private final IPoints startPt;
+    private final IPoints endPt;
+    private final IApplicationState appState;
+    private final IShapesRepository shapeList;
     private IShapes createdShape;
 
     // appState will be used to determine future specific shape types

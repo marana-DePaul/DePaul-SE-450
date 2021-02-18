@@ -8,10 +8,10 @@ import main.interfaces.IShapesRepository;
 import java.util.List;
 
 public class SelectShapeCommand implements ICommands {
-    final private IPoints collStart;
-    final private IPoints collEnd;
-    final private List<IShapes> selectedList;
-    final private IShapesRepository shapesList;
+    private final IPoints collStart;
+    private final IPoints collEnd;
+    private final List<IShapes> selectedList;
+    private final IShapesRepository shapesList;
 
     public SelectShapeCommand(IPoints startPt, IPoints endPt, List<IShapes> current, IShapesRepository shapesList) {
         if (current == null || shapesList == null) throw new IllegalArgumentException();

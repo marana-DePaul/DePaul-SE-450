@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShapesRepository implements IShapesRepository {
-    final private List<IShapes> shapesList;
-    final private IShapesDrawer drawer;
+    private final List<IShapes> shapesList;
+    private final List<IShapes> selectList;
+    private final List<IShapes> prevSelected;
+    private final List<IShapes> copyList;
+    private final IShapesDrawer drawer;
 
     public ShapesRepository(PaintCanvasBase canvas) {
-        this.shapesList = new ArrayList<IShapes>();
-        this.drawer = new ShapesDrawer(canvas);
+        this.shapesList   = new ArrayList<IShapes>();
+        this.drawer       = new ShapesDrawer(canvas);
+        this.selectList   = new ArrayList<IShapes>();
+        this.prevSelected = new ArrayList<IShapes>();
+        this.copyList     = new ArrayList<IShapes>();
     }
 
 
@@ -48,12 +54,12 @@ public class ShapesRepository implements IShapesRepository {
         drawer.drawAllShapes(shapesList);
     }
 
+    // returns number of items in shapesList
     @Override
     public int getNumItems() {
         return shapesList.size();
     }
 
-    // method returns a copy of the shapeList
     @Override
     public List<IShapes> getShapeList() {
         List<IShapes> copy = new ArrayList<IShapes>();
@@ -63,4 +69,5 @@ public class ShapesRepository implements IShapesRepository {
 
         return copy;
     }
+
 }

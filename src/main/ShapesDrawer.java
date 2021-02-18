@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.util.List;
 
 public class ShapesDrawer implements IShapesDrawer {
-    final private PaintCanvasBase canvasBase;
+    private final PaintCanvasBase canvasBase;
 
     public ShapesDrawer(PaintCanvasBase canvasBase) {
         this.canvasBase = canvasBase;

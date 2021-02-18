@@ -16,17 +16,19 @@ public class MouseHandler extends MouseAdapter {
     private IPoints startCoord;
     private IPoints endCoord;
     private final IApplicationState appState;
-    private final IShapesRepository shapesList;
+    private final IShapesRepository shapesRepo;
     private final List<IShapes> selectList;
     private final List<IShapes> prevSelected;
+    private final List<IShapes> copyList;
 
-    public MouseHandler(IApplicationState state, IShapesRepository shapesList) {
+    public MouseHandler(IApplicationState state, IShapesRepository shapesRepo) {
         startCoord = new PointCoord(0,0);
         endCoord   = new PointCoord(0,0);
         appState   = state;
-        this.shapesList = shapesList;
+        this.shapesRepo = shapesRepo;
         selectList = new ArrayList<IShapes>();
         prevSelected = new ArrayList<IShapes>();
+        copyList = new ArrayList<>();
     }
 
     @Override
@@ -45,12 +47,12 @@ public class MouseHandler extends MouseAdapter {
 
         // if in draw mode, create the shape
         if (appState.getActiveMouseMode() == MouseMode.DRAW) {
-            command = new CreateShapeCommand(startCoord,endCoord,appState,shapesList);
+            command = new CreateShapeCommand(startCoord,endCoord,appState,shapesRepo);
             command.run();
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            command = new SelectShapeCommand(startCoord,endCoord,selectList,shapesList);
+            command = new SelectShapeCommand(startCoord,endCoord,selectList,shapesRepo);
             command.run();
         }
 
@@ -58,8 +60,12 @@ public class MouseHandler extends MouseAdapter {
             int deltaX = endCoord.get_x() - startCoord.get_x();
             int deltaY = endCoord.get_y() - startCoord.get_y();
 
-            command = new MoveShapeCommand(deltaX, deltaY, selectList, prevSelected, shapesList);
+            command = new MoveShapeCommand(deltaX, deltaY, selectList, prevSelected, shapesRepo);
             command.run();
         }
+    }
+
+    public List<IShapes> getCopyList() {
+        return copyList;
     }
 }

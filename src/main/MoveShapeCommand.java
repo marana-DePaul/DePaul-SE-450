@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveShapeCommand implements ICommands, IUndoRedo {
-    private int deltaX;
-    private int deltaY;
-    private List<IShapes> selectedList;
-    private List<IShapes> prevSelected;
-    private IShapesRepository shapesList;
-    private int numPrevSelected;
+    private final int deltaX;
+    private final int deltaY;
+    private final List<IShapes> selectedList;
+    private final List<IShapes> prevSelected;
+    private final IShapesRepository shapesList;
 
     public MoveShapeCommand (int deltaX, int deltaY, List<IShapes> selectedList, List<IShapes> prevSelected, IShapesRepository shapesList) {
         this.deltaX = deltaX;
@@ -19,7 +18,6 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
         this.selectedList = selectedList;
         this.prevSelected = prevSelected;
         this.shapesList = shapesList;
-        numPrevSelected = 0;
     }
 
     @Override
