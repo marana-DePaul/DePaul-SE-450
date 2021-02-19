@@ -20,22 +20,15 @@ public class PasteCommand implements ICommands {
     public void run() {
         List<IShapes> copyList = SelectContainer.getCopyList();
 
-        System.out.println("ShapeRepo size b4 copy -> " + shapeRepo.getNumItems());
-
         // for every copied shape, clone a new shape at an offset from the origin
         for (IShapes x : copyList) {
-            // needed to maintain same shape, especially for triangles
-            int shiftX = Math.min(x.getStart().get_x(), x.getEnd().get_x());
-            int shiftY = Math.min(x.getStart().get_y(), x.getEnd().get_y());
-
-            IPoints startPt = new PointCoord(x.getStart().get_x() - shiftX,x.getStart().get_y() - shiftY);
-            IPoints endPt = new PointCoord(x.getEnd().get_x() - shiftX, x.getEnd().get_y() - shiftY );
+            IPoints startPt = new PointCoord(x.getStart().get_x() + 65,x.getStart().get_y() + 65);
+            IPoints endPt = new PointCoord(x.getEnd().get_x() + 65, x.getEnd().get_y() + 65);
             IShapes copiedShape = new GenericShape(startPt, endPt, x);
 
             shapeRepo.addShape(copiedShape);
         }
 
-        System.out.println("ShapeRepo items after copy -> " + shapeRepo.getNumItems());
     }
 
 
