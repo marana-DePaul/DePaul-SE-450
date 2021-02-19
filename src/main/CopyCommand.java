@@ -6,16 +6,18 @@ import main.interfaces.IShapes;
 import java.util.List;
 
 public class CopyCommand implements ICommands {
-    private List<IShapes> copyList;
-    private List<IShapes> selectedList;
-
-    public CopyCommand (List<IShapes> copyList, List<IShapes> selectedList) {
-        this.copyList = copyList;
-        this.selectedList = selectedList;
-    }
 
     @Override
     public void run() {
-        System.out.println("hello from the copy command");
+        List<IShapes> copyList = SelectContainer.getCopyList();
+        List<IShapes> selectedList = SelectContainer.getSelectedList();
+
+        copyList.clear();
+        // for every selected shape, add it to the copyList
+        for (IShapes x : selectedList) {
+            copyList.add(x);
+        }
+
+        //System.out.println("Shapes copied -> " + copyList.size());
     }
 }

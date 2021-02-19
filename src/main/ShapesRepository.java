@@ -8,17 +8,11 @@ import java.util.List;
 
 public class ShapesRepository implements IShapesRepository {
     private final List<IShapes> shapesList;
-    private final List<IShapes> selectList;
-    private final List<IShapes> prevSelected;
-    private final List<IShapes> copyList;
     private final IShapesDrawer drawer;
 
     public ShapesRepository(PaintCanvasBase canvas) {
         this.shapesList   = new ArrayList<IShapes>();
         this.drawer       = new ShapesDrawer(canvas);
-        this.selectList   = new ArrayList<IShapes>();
-        this.prevSelected = new ArrayList<IShapes>();
-        this.copyList     = new ArrayList<IShapes>();
     }
 
 

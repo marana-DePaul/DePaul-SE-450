@@ -1,15 +1,11 @@
 package main;
 
-import main.interfaces.ICommands;
-import main.interfaces.IPoints;
-import main.interfaces.IShapes;
-import main.interfaces.IShapesRepository;
+import main.interfaces.*;
 import model.MouseMode;
 import model.interfaces.IApplicationState;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MouseHandler extends MouseAdapter {
@@ -17,18 +13,12 @@ public class MouseHandler extends MouseAdapter {
     private IPoints endCoord;
     private final IApplicationState appState;
     private final IShapesRepository shapesRepo;
-    private final List<IShapes> selectList;
-    private final List<IShapes> prevSelected;
-    private final List<IShapes> copyList;
 
     public MouseHandler(IApplicationState state, IShapesRepository shapesRepo) {
         startCoord = new PointCoord(0,0);
         endCoord   = new PointCoord(0,0);
         appState   = state;
         this.shapesRepo = shapesRepo;
-        selectList = new ArrayList<IShapes>();
-        prevSelected = new ArrayList<IShapes>();
-        copyList = new ArrayList<>();
     }
 
     @Override
@@ -52,6 +42,7 @@ public class MouseHandler extends MouseAdapter {
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
+            List<IShapes> selectList = SelectContainer.getSelectedList();
             command = new SelectShapeCommand(startCoord,endCoord,selectList,shapesRepo);
             command.run();
         }
@@ -59,13 +50,12 @@ public class MouseHandler extends MouseAdapter {
         else if (appState.getActiveMouseMode() == MouseMode.MOVE) {
             int deltaX = endCoord.get_x() - startCoord.get_x();
             int deltaY = endCoord.get_y() - startCoord.get_y();
+            List<IShapes> selectList = SelectContainer.getSelectedList();
+            List<IShapes> prevSelected = SelectContainer.getPrevSelectedList();
 
             command = new MoveShapeCommand(deltaX, deltaY, selectList, prevSelected, shapesRepo);
             command.run();
         }
     }
 
-    public List<IShapes> getCopyList() {
-        return copyList;
-    }
 }

@@ -9,12 +9,12 @@ import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class GenericShape implements IShapes {
-    private IPoints           start;
-    private IPoints           end;
-    private ShapeColor        primaryColor;
-    private ShapeColor        secondaryColor;
-    private ShapeShadingType  shadingType;
-    private IDrawStrategy     shapeStrategy;
+    private final IPoints           start;
+    private final IPoints           end;
+    private final ShapeColor        primaryColor;
+    private final ShapeColor        secondaryColor;
+    private final ShapeShadingType  shadingType;
+    private final IDrawStrategy     shapeStrategy;
     
     public GenericShape (IPoints start, IPoints end, IApplicationState appState, IDrawStrategy strategy) {
         this.start = new PointCoord(start);

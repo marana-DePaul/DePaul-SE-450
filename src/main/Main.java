@@ -21,11 +21,12 @@ public class Main {
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
-        IJPaintController controller = new JPaintController(uiModule, appState);
-        controller.setup();
 
-        // setting up shape repository and drawer class
+        // setting up shape repository/drawer
         IShapesRepository shapeRepo = new ShapesRepository(paintCanvas);
+
+        IJPaintController controller = new JPaintController(uiModule, appState, shapeRepo);
+        controller.setup();
 
         // setting up mouse interactions
         MouseHandler mouseHandler = new MouseHandler(appState, shapeRepo);
