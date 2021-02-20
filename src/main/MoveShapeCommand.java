@@ -32,9 +32,6 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
         // for each shape in the selected list, update them with the delta values
         for (IShapes s : dummySelected) {
 
-            // add shape to the previously selected list
-            prevSelected.add(s);
-
             // since Shapes are immutable, have to clone them, pass in updated points.
             IPoints start = new PointCoord(deltaX + s.getStart().get_x(), deltaY + s.getStart().get_y());
             IPoints end   = new PointCoord(deltaX + s.getEnd().get_x(), deltaY + s.getEnd().get_y());

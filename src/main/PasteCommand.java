@@ -5,17 +5,18 @@ import main.interfaces.*;
 import java.util.List;
 
 public class PasteCommand implements ICommands, IUndoRedo {
+    private final List<IShapes> copyList;
     private final IShapesRepository shapesRepo;
 
     public PasteCommand (IShapesRepository shapeRepo) {
         if (shapeRepo == null) throw new IllegalArgumentException();
 
+        this.copyList = SelectContainer.getCopyList();
         this.shapesRepo = shapeRepo;
     }
 
     @Override
     public void run() {
-        List<IShapes> copyList = SelectContainer.getCopyList();
 
         // for every copied shape, clone a new shape at an offset from the origin
         for (IShapes x : copyList) {
@@ -39,7 +40,6 @@ public class PasteCommand implements ICommands, IUndoRedo {
 
     @Override
     public void redo() {
-        List<IShapes> copyList = SelectContainer.getCopyList();
 
         for (IShapes x : copyList) {
             IPoints startPt = new PointCoord(x.getStart().get_x() + 65,x.getStart().get_y() + 65);

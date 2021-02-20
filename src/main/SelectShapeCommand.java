@@ -28,11 +28,15 @@ public class SelectShapeCommand implements ICommands {
         selectedList.clear();
 
         List<IShapes> copy = shapesList.getShapeList();
+        List<IShapes> prevSelected = SelectContainer.getPrevSelectedList();
 
         // check the shapes in the repository to see if they were selected; if so add to selectedList
         for (IShapes s : copy) {
             if (detectCollision(s)) {
                 selectedList.add(s);
+
+                // add shape to the previously selected list
+                prevSelected.add(s);
             }
         }
         //System.out.println("objects selected -> " + selectedList.size());
