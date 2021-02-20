@@ -8,15 +8,15 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
     private final IPoints startPt;
     private final IPoints endPt;
     private final IApplicationState appState;
-    private final IShapesRepository shapeList;
+    private final IShapesRepository shapesRepo;
     private IShapes createdShape;
 
     // appState will be used to determine future specific shape types
-    public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapeList) {
+    public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapesRepo) {
         this.startPt = startPt;
         this.endPt = endPt;
         this.appState  = appState;
-        this.shapeList = shapeList;
+        this.shapesRepo = shapesRepo;
     }
 
     @Override
@@ -33,22 +33,18 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
         else if (appState.getActiveShapeType() == ShapeType.ELLIPSE)
             createdShape = shapeFactory.createEllipse(startPt, endPt, appState);
 
-        shapeList.addShape(createdShape);
+        shapesRepo.addShape(createdShape);
         //System.out.println("NumShapes-> " + shapeList.getNumItems());
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        shapeList.removeShape();
+        shapesRepo.removeShape();
     }
 
     @Override
     public void redo() {
-        shapeList.addShape(createdShape);
+        shapesRepo.addShape(createdShape);
     }
-
-
-
-
 }

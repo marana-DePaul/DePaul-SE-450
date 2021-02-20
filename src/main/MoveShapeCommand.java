@@ -10,14 +10,14 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
     private final int deltaY;
     private final List<IShapes> selectedList;
     private final List<IShapes> prevSelected;
-    private final IShapesRepository shapesList;
+    private final IShapesRepository shapesRepo;
 
-    public MoveShapeCommand (int deltaX, int deltaY, List<IShapes> selectedList, List<IShapes> prevSelected, IShapesRepository shapesList) {
+    public MoveShapeCommand (int deltaX, int deltaY, List<IShapes> selectedList, List<IShapes> prevSelected, IShapesRepository shapesRepo) {
         this.deltaX = deltaX;
         this.deltaY = deltaY;
         this.selectedList = selectedList;
         this.prevSelected = prevSelected;
-        this.shapesList = shapesList;
+        this.shapesRepo = shapesRepo;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
             IPoints end   = new PointCoord(deltaX + s.getEnd().get_x(), deltaY + s.getEnd().get_y());
             IShapes deltaShape = new GenericShape(start, end, s);
 
-            shapesList.removeShape(s);
-            shapesList.addShape(deltaShape);
+            shapesRepo.removeShape(s);
+            shapesRepo.addShape(deltaShape);
 
             // update the selectedList
             selectedList.remove(s);
@@ -55,22 +55,22 @@ public class MoveShapeCommand implements ICommands, IUndoRedo {
     @Override
     public void undo() {
         for (IShapes s : selectedList) {
-            shapesList.removeShape(s);
+            shapesRepo.removeShape(s);
         }
 
         for (IShapes s : prevSelected) {
-            shapesList.addShape(s);
+            shapesRepo.addShape(s);
         }
     }
 
     @Override
     public void redo() {
         for (IShapes s : prevSelected) {
-            shapesList.removeShape(s);
+            shapesRepo.removeShape(s);
         }
 
         for (IShapes s : selectedList) {
-            shapesList.addShape(s);
+            shapesRepo.addShape(s);
         }
     }
 

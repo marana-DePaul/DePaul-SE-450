@@ -38,7 +38,7 @@ public class ShapesRepository implements IShapesRepository {
         return delShape;
     }
 
-    // removes the given shape item from the list. Returns the index of the deleted shape on success, -1 on failure.
+    // removes the given shape item from the list.
     @Override
     public void removeShape(IShapes item) {
         if (shapesList.isEmpty()) throw new IllegalStateException();
