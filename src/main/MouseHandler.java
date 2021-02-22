@@ -43,7 +43,7 @@ public class MouseHandler extends MouseAdapter {
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
             List<IShapes> selectList = SelectContainer.getSelectedList();
-            command = new SelectShapeCommand(startCoord,endCoord,selectList,shapesRepo);
+            command = new SelectShapeProxy(startCoord,endCoord,selectList,shapesRepo);
             command.run();
         }
 
