@@ -31,23 +31,5 @@ public class Main {
         // setting up mouse interactions
         MouseHandler mouseHandler = new MouseHandler(appState, shapeRepo);
         paintCanvas.addMouseListener(mouseHandler);
-
-
-        // For example purposes only; remove all lines below from your final project.
-        /*
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-
-        // Selected Shape
-        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-        graphics2d.setStroke(stroke);
-        graphics2d.setColor(Color.BLACK);
-        graphics2d.drawRect(7, 8, 210, 410);
-        */
     }
 }

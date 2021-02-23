@@ -5,12 +5,14 @@ import main.interfaces.IPoints;
 import main.interfaces.IShapes;
 import model.ShapeColor;
 import model.ShapeShadingType;
+import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class GenericShape implements IShapes {
     private final IPoints           start;
     private final IPoints           end;
+    private final ShapeType         shapeType;
     private final ShapeColor        primaryColor;
     private final ShapeColor        secondaryColor;
     private final ShapeShadingType  shadingType;
@@ -19,6 +21,7 @@ public class GenericShape implements IShapes {
     public GenericShape (IPoints start, IPoints end, IApplicationState appState, IDrawStrategy strategy) {
         this.start = new PointCoord(start);
         this.end = new PointCoord(end);
+        this.shapeType = appState.getActiveShapeType();
         this.primaryColor   = appState.getActivePrimaryColor();
         this.secondaryColor = appState.getActiveSecondaryColor();
         this.shadingType    = appState.getActiveShapeShadingType();
@@ -28,6 +31,7 @@ public class GenericShape implements IShapes {
     public GenericShape() {
         start = new PointCoord(100,100);
         end   = new PointCoord(400,400);
+        shapeType = ShapeType.RECTANGLE;
         primaryColor = ShapeColor.GREEN;
         secondaryColor = ShapeColor.ORANGE;
         shadingType = ShapeShadingType.FILLED_IN;
@@ -37,10 +41,21 @@ public class GenericShape implements IShapes {
     public GenericShape(IPoints start, IPoints end, IShapes shape) {
         this.start = new PointCoord(start);
         this.end = new PointCoord(end);
+        this.shapeType = shape.getShapeType();
         this.primaryColor = shape.getPrimaryColor();
         this.secondaryColor = shape.getSecondaryColor();
         this.shadingType = shape.getShadingType();
         this.shapeStrategy = shape.getShapeStrategy();
+    }
+
+    public GenericShape(IPoints start, IPoints end, IShapes shape, IDrawStrategy strategy) {
+        this.start = new PointCoord(start);
+        this.end = new PointCoord(end);
+        this.shapeType = shape.getShapeType();
+        this.primaryColor = shape.getPrimaryColor();
+        this.secondaryColor = shape.getSecondaryColor();
+        this.shadingType = shape.getShadingType();
+        this.shapeStrategy = strategy;
     }
 
 
@@ -61,6 +76,9 @@ public class GenericShape implements IShapes {
     public IPoints getEnd() {
         return end;
     }
+
+    @Override
+    public ShapeType getShapeType() { return shapeType; }
 
     @Override
     public ShapeColor getPrimaryColor() {return primaryColor;}
