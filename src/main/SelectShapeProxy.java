@@ -28,11 +28,9 @@ public class SelectShapeProxy implements ICommands {
     @Override
     public void run() {
         // run the select command in order to get the updated select list
-        selectCmd.run();
-
-        //System.out.println("Num selected -> " + selectList.size());
-
         List<IShapes> tmp = new ArrayList<>();
+
+        selectCmd.run();
 
         for (IShapes s : selectList)
             tmp.add(s);
@@ -50,6 +48,13 @@ public class SelectShapeProxy implements ICommands {
 
             ICommands cmd = new CreateShapeCommand(start,end,appState,shapesRepo,s);
             cmd.run();
+        }
+
+        // if user has not selected anything, remove the outlines
+        if (selectList.isEmpty()) {
+
+            for (IShapes s : SelectContainer.getOutlineList())
+                shapesRepo.removeShape(s);
         }
     }
 }

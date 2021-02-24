@@ -9,6 +9,7 @@ public class SelectContainer {
     private static final List<IShapes> selectList = new ArrayList<>();
     private static final List<IShapes> prevSelectList = new ArrayList<>();
     private static final List<IShapes> copyList = new ArrayList<>();
+    private static final List<IShapes> outlineList = new ArrayList<>();
 
     public static List<IShapes> getSelectedList() {
         return selectList;
@@ -21,5 +22,7 @@ public class SelectContainer {
     public static List<IShapes> getCopyList() {
         return copyList;
     }
+
+    public static List<IShapes> getOutlineList() { return outlineList; }
 
 }

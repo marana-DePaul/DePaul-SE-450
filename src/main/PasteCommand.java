@@ -27,7 +27,7 @@ public class PasteCommand implements ICommands, IUndoRedo {
             shapesRepo.addShape(copiedShape);
         }
 
-        System.out.println("Shapes copied -> " + shapesRepo.getNumItems());
+        //System.out.println("Shapes copied -> " + shapesRepo.getNumItems());
         CommandHistory.add(this);
     }
 

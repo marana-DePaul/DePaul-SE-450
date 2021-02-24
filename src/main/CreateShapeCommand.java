@@ -48,8 +48,11 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
             createdShape = shapeFactory.createCopy(startPt, endPt, inShape);
 
         // if in select mode, add it to the seleted List
-        if (appState.getActiveMouseMode() == MouseMode.SELECT)
+        if (appState.getActiveMouseMode() == MouseMode.SELECT) {
             SelectContainer.getSelectedList().add(createdShape);
+            SelectContainer.getPrevSelectedList().add(createdShape);
+            SelectContainer.getOutlineList().add(createdShape);
+        }
 
         shapesRepo.addShape(createdShape);
 
