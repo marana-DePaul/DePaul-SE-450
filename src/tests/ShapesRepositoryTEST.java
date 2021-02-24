@@ -28,7 +28,7 @@ public class ShapesRepositoryTEST {
         testRepo.addShape(testShape1);
 
         // assert
-        assertEquals(testRepo.getNumItems(),1);
+        assertEquals(1, testRepo.getNumItems());
     }
 
 
@@ -43,7 +43,7 @@ public class ShapesRepositoryTEST {
         }
         catch (IllegalArgumentException ex) { }
 
-        assertEquals(testRepo.getNumItems(),0);
+        assertEquals(0, testRepo.getNumItems());
     }
 
     @Test
@@ -58,7 +58,9 @@ public class ShapesRepositoryTEST {
         testRepo.addShape(testShape2);
         testRepo.removeShape();
 
-        assertEquals(testRepo.getNumItems(),1);
+        assertEquals(1, testRepo.getNumItems());
+
+
     }
 
     @Test
@@ -72,7 +74,7 @@ public class ShapesRepositoryTEST {
         }
         catch (IllegalStateException ex) { }
 
-        assertEquals(testRepo.getNumItems(),0);
+        assertEquals(0, testRepo.getNumItems());
     }
 
     @Test
@@ -80,17 +82,31 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-
         IShapes testShape1 = new GenericShape();
         IShapes testShape2 = new GenericShape();
 
         testRepo.addShape(testShape1);
         testRepo.addShape(testShape2);
-
         testRepo.removeShape(testShape1);
 
-
+        assertEquals(1, testRepo.getNumItems());
     }
 
+    @Test
+    public void testRemoveShapeSpecifiedWithNullParameterThrowsException() {
+        PaintCanvasBase testCanvas = new PaintCanvas();
+        IGuiWindow testWindow = new GuiWindow(testCanvas);
+        IShapesRepository testRepo = new ShapesRepository(testCanvas);
+        IShapes testShape1 = new GenericShape();
+
+        testRepo.addShape(testShape1);
+
+        try {
+            testRepo.removeShape(null);
+        }
+        catch  (IllegalArgumentException ex) { }
+
+        assertEquals(1, testRepo.getNumItems());
+    }
 
 }
