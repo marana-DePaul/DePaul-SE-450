@@ -1,6 +1,7 @@
 package main;
 
 import main.interfaces.*;
+import model.MouseMode;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
 
@@ -46,7 +47,12 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
         else
             createdShape = shapeFactory.createCopy(startPt, endPt, inShape);
 
+        // if in select mode, add it to the seleted List
+        if (appState.getActiveMouseMode() == MouseMode.SELECT)
+            SelectContainer.getSelectedList().add(createdShape);
+
         shapesRepo.addShape(createdShape);
+
         //System.out.println("NumShapes-> " + shapeList.getNumItems());
         CommandHistory.add(this);
     }

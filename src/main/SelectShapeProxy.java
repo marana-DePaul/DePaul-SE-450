@@ -6,6 +6,7 @@ import main.interfaces.IShapes;
 import main.interfaces.IShapesRepository;
 import model.interfaces.IApplicationState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectShapeProxy implements ICommands {
@@ -29,11 +30,15 @@ public class SelectShapeProxy implements ICommands {
         // run the select command in order to get the updated select list
         selectCmd.run();
 
-        System.out.println("In the proxy after running OG select cmd");
-        System.out.println("Num selected -> " + selectList.size());
+        //System.out.println("Num selected -> " + selectList.size());
+
+        List<IShapes> tmp = new ArrayList<>();
+
+        for (IShapes s : selectList)
+            tmp.add(s);
 
         // for every shape that is selected, draw an identical outline shape
-        for (IShapes s : selectList) {
+        for (IShapes s : tmp) {
             int startX = s.getStart().get_x() - 5;
             int startY = s.getStart().get_y() - 5;
 
@@ -46,8 +51,5 @@ public class SelectShapeProxy implements ICommands {
             ICommands cmd = new CreateShapeCommand(start,end,appState,shapesRepo,s);
             cmd.run();
         }
-
-        System.out.println("Finished the select proxy");
-
     }
 }
