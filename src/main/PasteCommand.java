@@ -33,10 +33,15 @@ public class PasteCommand implements ICommands, IUndoRedo {
 
     @Override
     public void undo() {
-        int numCopy = SelectContainer.getCopyList().size();
+        List<IShapes> tmp = SelectContainer.getOutlineList();
 
-        for (int i = 0; i < numCopy; i++)
-            shapesRepo.removeShape();
+        for (IShapes s : tmp)
+            shapesRepo.removeShape(s);
+
+        tmp = SelectContainer.getCopyList();
+
+        for (IShapes s : tmp)
+            shapesRepo.removeShape(s);
 
     }
 
