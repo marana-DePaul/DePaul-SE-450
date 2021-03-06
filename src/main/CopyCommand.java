@@ -9,8 +9,8 @@ public class CopyCommand implements ICommands {
 
     @Override
     public void run() {
-        List<IShapes> copyList = SelectContainer.getCopyList();
-        List<IShapes> selectedList = SelectContainer.getSelectedList();
+        List<IShapes> copyList = SharedContainers.getInstance().getCopyList();
+        List<IShapes> selectedList = SharedContainers.getInstance().getSelectList();
 
         copyList.clear();
         // for every selected shape, add it to the copyList

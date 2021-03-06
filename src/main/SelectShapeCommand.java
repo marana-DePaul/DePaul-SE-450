@@ -25,7 +25,7 @@ public class SelectShapeCommand implements ICommands {
         selectedList.clear();
 
         List<IShapes> copy = shapesList.getShapeList();
-        List<IShapes> prevSelected = SelectContainer.getPrevSelectedList();
+        List<IShapes> prevSelected = SharedContainers.getInstance().getPrevSelectList();
         ICollisionStrategy collision = new CollisionStrategy();
 
         // check the shapes in the repository to see if they were selected; if so add to selectedList

@@ -35,14 +35,13 @@ public class MouseHandler extends MouseAdapter {
 
         ICommands command;
 
-        // if in draw mode, create the shape
         if (appState.getActiveMouseMode() == MouseMode.DRAW) {
             command = new CreateShapeCommand(startCoord,endCoord,appState,shapesRepo);
             command.run();
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            List<IShapes> selectList = SelectContainer.getSelectedList();
+            List<IShapes> selectList = SharedContainers.getInstance().getSelectList();
             command = new SelectShapeProxy(startCoord,endCoord,selectList, appState, shapesRepo);
             command.run();
         }
@@ -50,8 +49,8 @@ public class MouseHandler extends MouseAdapter {
         else if (appState.getActiveMouseMode() == MouseMode.MOVE) {
             int deltaX = endCoord.get_x() - startCoord.get_x();
             int deltaY = endCoord.get_y() - startCoord.get_y();
-            List<IShapes> selectList = SelectContainer.getSelectedList();
-            List<IShapes> prevSelected = SelectContainer.getPrevSelectedList();
+            List<IShapes> selectList = SharedContainers.getInstance().getSelectList();
+            List<IShapes> prevSelected = SharedContainers.getInstance().getPrevSelectList();
 
             command = new MoveShapeCommand(deltaX, deltaY, selectList, prevSelected, shapesRepo);
             command.run();

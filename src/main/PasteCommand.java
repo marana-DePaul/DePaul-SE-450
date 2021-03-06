@@ -11,7 +11,7 @@ public class PasteCommand implements ICommands, IUndoRedo {
     public PasteCommand (IShapesRepository shapeRepo) {
         if (shapeRepo == null) throw new IllegalArgumentException();
 
-        this.copyList = SelectContainer.getCopyList();
+        this.copyList = SharedContainers.getInstance().getCopyList();
         this.shapesRepo = shapeRepo;
     }
 
@@ -33,12 +33,12 @@ public class PasteCommand implements ICommands, IUndoRedo {
 
     @Override
     public void undo() {
-        List<IShapes> tmp = SelectContainer.getOutlineList();
+        List<IShapes> tmp = SharedContainers.getInstance().getOutlineList();
 
         for (IShapes s : tmp)
             shapesRepo.removeShape(s);
 
-        tmp = SelectContainer.getCopyList();
+        tmp = SharedContainers.getInstance().getCopyList();
 
         for (IShapes s : tmp)
             shapesRepo.removeShape(s);

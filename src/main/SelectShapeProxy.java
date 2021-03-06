@@ -52,8 +52,9 @@ public class SelectShapeProxy implements ICommands {
 
         // if user has not selected anything, remove the outlines
         if (selectList.isEmpty()) {
+            List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
 
-            for (IShapes s : SelectContainer.getOutlineList())
+            for (IShapes s : outlines)
                 shapesRepo.removeShape(s);
         }
     }

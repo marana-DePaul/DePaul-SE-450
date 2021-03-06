@@ -17,7 +17,7 @@ public class DeleteCommand implements ICommands, IUndoRedo {
         if (shapeRepo == null) throw new IllegalArgumentException();
 
         this.shapeRepo = shapeRepo;
-        this.selectedList = SelectContainer.getSelectedList();
+        this.selectedList = SharedContainers.getInstance().getSelectList();
         this.removedShapes = new ArrayList<>();
     }
 

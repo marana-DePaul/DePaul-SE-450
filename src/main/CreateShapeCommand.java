@@ -49,9 +49,9 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
 
         // if in select mode, add it to the seleted List
         if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            SelectContainer.getSelectedList().add(createdShape);
-            SelectContainer.getPrevSelectedList().add(createdShape);
-            SelectContainer.getOutlineList().add(createdShape);
+            SharedContainers.getInstance().getSelectList().add(createdShape);
+            SharedContainers.getInstance().getPrevSelectList().add(createdShape);
+            SharedContainers.getInstance().getOutlineList().add(createdShape);
         }
 
         shapesRepo.addShape(createdShape);
