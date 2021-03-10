@@ -1,5 +1,6 @@
 package main.interfaces;
 
+import model.ShapeType;
 import model.interfaces.IApplicationState;
 
 public interface IShapesFactory {
@@ -9,5 +10,7 @@ public interface IShapesFactory {
 
     IShapes createEllipse(IPoints startPt, IPoints endPt, IApplicationState appState);
 
-    IShapes createCopy(IPoints startPt, IPoints endPt, IShapes shape);
+    IShapes createOutline(IPoints startPt, IPoints endPt, IShapes shape);
+
+    IShapes createOutline(IPoints startPt, IPoints endPt, ShapeType x);
 }

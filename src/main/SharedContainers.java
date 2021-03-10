@@ -11,12 +11,14 @@ public class SharedContainers {
     private final List<IShapes> prevSelectList;
     private final List<IShapes> copyList;
     private final List<IShapes> outlineList;
+    private final GroupShape groupShape;
 
     private SharedContainers () {
-        this.selectList = new ArrayList<>();
+        this.selectList     = new ArrayList<>();
         this.prevSelectList = new ArrayList<>();
-        this.copyList = new ArrayList<>();
-        this.outlineList = new ArrayList<>();
+        this.copyList       = new ArrayList<>();
+        this.outlineList    = new ArrayList<>();
+        this.groupShape     = new GroupShape();
     }
 
     public static SharedContainers getInstance() {
@@ -32,6 +34,8 @@ public class SharedContainers {
     public List<IShapes> getCopyList() { return copyList; }
 
     public List<IShapes> getOutlineList() { return outlineList; }
+
+    public GroupShape getGroupShape() { return groupShape; }
 
 
 

@@ -91,4 +91,21 @@ public class GenericShape implements IShapes {
 
     @Override
     public IDrawStrategy getShapeStrategy() {return  shapeStrategy;}
+
+    /* IGroupComponent methods */
+    @Override
+    public void copyShape() {}
+
+    @Override
+    public void pasteShape() {}
+
+    @Override
+    public void deleteShape() {}
+
+    @Override
+    public void groupShape() {}
+
+    @Override
+    public void unGroupShape() {}
+
 }

@@ -45,7 +45,7 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
                 createdShape = shapeFactory.createEllipse(startPt, endPt, appState);
         }
         else
-            createdShape = shapeFactory.createCopy(startPt, endPt, inShape);
+            createdShape = shapeFactory.createOutline(startPt, endPt, inShape);
 
         // if in select mode, add it to the seleted List
         if (appState.getActiveMouseMode() == MouseMode.SELECT) {

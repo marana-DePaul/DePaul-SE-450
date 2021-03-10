@@ -23,4 +23,14 @@ public interface IShapes {
 
     IDrawStrategy getShapeStrategy();
 
+    void copyShape();
+
+    void pasteShape();
+
+    void deleteShape();
+
+    void groupShape();
+
+    void unGroupShape();
+
 }

@@ -31,7 +31,7 @@ public class ShapesFactory implements IShapesFactory {
     }
 
     @Override
-    public IShapes createCopy(IPoints startPt, IPoints endPt, IShapes shape) {
+    public IShapes createOutline(IPoints startPt, IPoints endPt, IShapes shape) {
         IDrawStrategy strategy = shape.getShapeStrategy();
 
         if (appState.getActiveMouseMode() == MouseMode.SELECT) {
@@ -44,5 +44,19 @@ public class ShapesFactory implements IShapesFactory {
         }
 
         return new GenericShape(startPt, endPt, shape, strategy);
+    }
+
+    @Override
+    public IShapes createOutline(IPoints startPt, IPoints endPt, ShapeType x) {
+        IDrawStrategy strategy = null;
+
+        if (x == ShapeType.RECTANGLE)
+            strategy = new RectangleOutlineStrategy();
+        else if (x == ShapeType.TRIANGLE)
+            strategy = new TriangleOutlineStrategy();
+        else if (x == ShapeType.ELLIPSE)
+            strategy = new EllipseOutlineStrategy();
+
+        return new GenericShape(startPt, endPt, appState, strategy);
     }
 }
