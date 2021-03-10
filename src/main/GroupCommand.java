@@ -4,7 +4,6 @@ import main.interfaces.*;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupCommand implements ICommands, IUndoRedo {
@@ -23,43 +22,41 @@ public class GroupCommand implements ICommands, IUndoRedo {
         List<IShapes> selected = SharedContainers.getInstance().getSelectList();
         List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
         GroupShape groups = SharedContainers.getInstance().getGroupShape();
-
         IPoints topLeft;
         IPoints bottomRight;
-        int x1 = selected.get(0).getStart().get_x();
-        int y1 = selected.get(0).getStart().get_y();
-        int x2 = selected.get(0).getEnd().get_x();
-        int y2 = selected.get(0).getEnd().get_y();
 
-
-        // calculating the top leftmost, and bottom rightmost points
-        for (IShapes x : selected) {
-            // check if have to update top leftmost point
-            if (x.getStart().get_x() < x1) {
-                x1 = x.getStart().get_x();
-                y1 = x.getStart().get_y();
-            }
-
-            // check if have to update bottom rightmost point
-            if (x.getEnd().get_x() > x2) {
-                x2 = x.getEnd().get_x();
-                y2 = x.getEnd().get_y();
-            }
-
-            // adding to the groups
-            //groups.addChild(x);
-        }
+        int x1 = Integer.MAX_VALUE;
+        int y1 = Integer.MAX_VALUE;
+        int x2 = Integer.MIN_VALUE;
+        int y2 = Integer.MIN_VALUE;
 
         // deleting old outlines
         for (IShapes s : outlines) {
             shapesRepo.removeShape(s);
-            //selected.remove(s);
+            selected.remove(s);
         }
 
-        topLeft = new PointCoord(x1,y1);
-        bottomRight = new PointCoord(x2,y2);
+        for (IShapes s : selected) {
+            int lowX = Math.min(s.getStart().get_x(), s.getEnd().get_x());
+            int lowY = Math.min(s.getStart().get_y(), s.getEnd().get_y());
+            int highX = Math.max(s.getStart().get_x(), s.getEnd().get_x());
+            int highY = Math.max(s.getStart().get_y(), s.getEnd().get_y());
 
+            if (lowX < x1)
+                x1 = lowX;
 
+            if (lowY < y1)
+                y1 = lowY;
+
+            if (highX > x2)
+                x2 = highX;
+
+            if (highY > y2)
+                y2 = highY;
+        }
+
+        topLeft = new PointCoord(x1 - 5,y1 - 5);
+        bottomRight = new PointCoord(x2 + 5,y2 + 5);
 
         // creating group by rectangle shape
         IShapesFactory factory = new ShapesFactory(appState);
