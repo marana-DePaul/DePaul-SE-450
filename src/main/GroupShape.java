@@ -13,15 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupShape implements IShapes {
+    private final IPoints start;
+    private final IPoints end;
     private final List<IShapes> children;
+    private final IDrawStrategy shapeStrategy;
 
-    public GroupShape() {
-        this.children = new ArrayList<IShapes>();
+    public GroupShape(IPoints start, IPoints end, IDrawStrategy shapeStrategy) {
+        this.start = new PointCoord(start);
+        this.end = new PointCoord(end);
+        this.children = new ArrayList<>();
+        this.shapeStrategy = shapeStrategy;
     }
 
     public void addChild(IShapes shape) {
         children.add(shape);
-        System.out.println(children.size());
+    }
+
+    public int getSize() {
+        int total = 0;
+
+        for (IShapes s : children)
+            total += s.getSize();
+
+        return total;
     }
 
     @Override
@@ -40,7 +54,15 @@ public class GroupShape implements IShapes {
     public void unGroupShape() {}
 
     @Override
-    public void drawShape(PaintCanvasBase canvasBase) { }
+    public void drawShape(PaintCanvasBase canvasBase) {
+        if (canvasBase == null)
+            throw new IllegalArgumentException();
+
+
+
+
+        //shapeStrategy.drawShapeType(start, end, shadingType, primaryColor, secondaryColor, canvasBase);
+    }
 
     @Override
     public IPoints getStart() { return null; }

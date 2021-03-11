@@ -26,9 +26,11 @@ public class DeleteCommand implements ICommands, IUndoRedo {
         // delete any selected shapes
         if (selectedList == null) throw new IllegalStateException();
 
-        for (IShapes x : selectedList) {
+        List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
 
+        for (IShapes x : selectedList) {
             shapeRepo.removeShape(x);
+            outlines.remove(x);
             removedShapes.add(x);
         }
 
@@ -46,8 +48,11 @@ public class DeleteCommand implements ICommands, IUndoRedo {
 
     @Override
     public void redo() {
+        List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
+
         for (IShapes x : selectedList) {
             shapeRepo.removeShape(x);
+            outlines.remove(x);
             removedShapes.add(x);
         }
     }

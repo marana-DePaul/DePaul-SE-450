@@ -11,9 +11,11 @@ public class CollisionStrategyTEST {
     @Test
     public void detectCollisionSuccess() {
         ICollisionStrategy testStrategy = new CollisionStrategy();
+        IPoints testShpStart = new PointCoord(100,100);
+        IPoints testShpEnd   = new PointCoord(400, 400);
         IPoints testCollStart = new PointCoord(0,0);
         IPoints testCollEnd = new PointCoord(300,300);
-        IShapes testShape = new GenericShape();
+        IShapes testShape = new GenericShape(testShpStart, testShpEnd, new RectangleStrategy());
         boolean status;
 
         status = testStrategy.detectCollision(testCollStart,testCollEnd,testShape);

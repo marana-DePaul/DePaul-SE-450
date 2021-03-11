@@ -13,7 +13,6 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
     private IShapes createdShape;
     private IShapes inShape;
 
-    // appState will be used to determine future specific shape types
     public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapesRepo) {
         this.startPt = startPt;
         this.endPt = endPt;
@@ -36,16 +35,16 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
 
         if (inShape == null) {
             if (appState.getActiveShapeType() == ShapeType.RECTANGLE)
-                createdShape = shapeFactory.createRectangle(startPt, endPt, appState);
+                createdShape = shapeFactory.createRectangle(startPt, endPt);
 
             else if (appState.getActiveShapeType() == ShapeType.TRIANGLE)
-                createdShape = shapeFactory.createTriangle(startPt, endPt, appState);
+                createdShape = shapeFactory.createTriangle(startPt, endPt);
 
             else if (appState.getActiveShapeType() == ShapeType.ELLIPSE)
-                createdShape = shapeFactory.createEllipse(startPt, endPt, appState);
+                createdShape = shapeFactory.createEllipse(startPt, endPt);
         }
         else
-            createdShape = shapeFactory.createOutline(startPt, endPt, inShape);
+            createdShape = shapeFactory.createOutlineCopy(startPt, endPt, inShape);
 
         // if in select mode, add it to the seleted List
         if (appState.getActiveMouseMode() == MouseMode.SELECT) {
@@ -55,8 +54,6 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
         }
 
         shapesRepo.addShape(createdShape);
-
-        //System.out.println("NumShapes-> " + shapeList.getNumItems());
         CommandHistory.add(this);
     }
 

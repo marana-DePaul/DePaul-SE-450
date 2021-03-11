@@ -2,9 +2,14 @@ package tests;
 
 
 import main.GenericShape;
+import main.PointCoord;
+import main.RectangleStrategy;
 import main.ShapesRepository;
+import main.interfaces.IDrawStrategy;
+import main.interfaces.IPoints;
 import main.interfaces.IShapes;
 import main.interfaces.IShapesRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import view.gui.GuiWindow;
@@ -14,6 +19,16 @@ import view.interfaces.PaintCanvasBase;
 
 
 public class ShapesRepositoryTEST {
+    private IPoints testShpStart;
+    private IPoints testShpEnd;
+    private IDrawStrategy testStrategy;
+
+    @BeforeEach
+    public void setTestShapePoints() {
+        testShpStart = new PointCoord(100,100);
+        testShpEnd   = new PointCoord(400, 400);
+        testStrategy = new RectangleStrategy();
+    }
 
     @Test
     public void testAddShapeSuccess() {
@@ -22,7 +37,7 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new GenericShape();
+        IShapes testShape1 = new GenericShape(testShpStart, testShpEnd, testStrategy);
 
         // act
         testRepo.addShape(testShape1);
@@ -51,8 +66,10 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new GenericShape();
-        IShapes testShape2 = new GenericShape();
+        IPoints s2Start = new PointCoord(500,500);
+        IPoints s2End   = new PointCoord(555,555);
+        IShapes testShape1 = new GenericShape(testShpStart, testShpEnd, testStrategy);
+        IShapes testShape2 = new GenericShape(s2Start, s2End, testStrategy);
 
         testRepo.addShape(testShape1);
         testRepo.addShape(testShape2);
@@ -82,8 +99,10 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new GenericShape();
-        IShapes testShape2 = new GenericShape();
+        IPoints s2Start = new PointCoord(500,500);
+        IPoints s2End   = new PointCoord(555,555);
+        IShapes testShape1 = new GenericShape(testShpStart, testShpEnd, testStrategy);
+        IShapes testShape2 = new GenericShape(s2Start, s2End, testStrategy);
 
         testRepo.addShape(testShape1);
         testRepo.addShape(testShape2);
@@ -97,7 +116,7 @@ public class ShapesRepositoryTEST {
         PaintCanvasBase testCanvas = new PaintCanvas();
         IGuiWindow testWindow = new GuiWindow(testCanvas);
         IShapesRepository testRepo = new ShapesRepository(testCanvas);
-        IShapes testShape1 = new GenericShape();
+        IShapes testShape1 = new GenericShape(testShpStart, testShpEnd, testStrategy);
 
         testRepo.addShape(testShape1);
 

@@ -15,7 +15,6 @@ public class ShapesRepository implements IShapesRepository {
         this.drawer       = new ShapesDrawer(canvas);
     }
 
-
     // adds a shape, then tells ShapesDrawer to draw all the shapes in the list
     @Override
     public void addShape(IShapes shape) {

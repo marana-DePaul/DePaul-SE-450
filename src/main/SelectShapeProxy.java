@@ -1,9 +1,6 @@
 package main;
 
-import main.interfaces.ICommands;
-import main.interfaces.IPoints;
-import main.interfaces.IShapes;
-import main.interfaces.IShapesRepository;
+import main.interfaces.*;
 import model.interfaces.IApplicationState;
 
 import java.util.ArrayList;
@@ -27,11 +24,23 @@ public class SelectShapeProxy implements ICommands {
 
     @Override
     public void run() {
-        // run the select command in order to get the updated select list
         List<IShapes> tmp = new ArrayList<>();
 
+        // run the select command in order to get the updated select list
         selectCmd.run();
 
+        System.out.println("Num select now is -> "+ selectList.size());
+
+        // if user has not selected anything, remove the outlines
+        if (selectList.isEmpty()) {
+            System.out.println("made it inside the selctList is empty");
+            List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
+
+            for (IShapes s : outlines)
+                shapesRepo.removeShape(s);
+        }
+
+        // keep track of all shapes selected until now
         for (IShapes s : selectList)
             tmp.add(s);
 
@@ -50,12 +59,5 @@ public class SelectShapeProxy implements ICommands {
             cmd.run();
         }
 
-        // if user has not selected anything, remove the outlines
-        if (selectList.isEmpty()) {
-            List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
-
-            for (IShapes s : outlines)
-                shapesRepo.removeShape(s);
-        }
     }
 }

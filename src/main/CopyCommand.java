@@ -17,7 +17,5 @@ public class CopyCommand implements ICommands {
         for (IShapes x : selectedList) {
             copyList.add(x);
         }
-
-        //System.out.println("Shapes copied -> " + copyList.size());
     }
 }

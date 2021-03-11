@@ -37,7 +37,6 @@ public class SelectShapeCommand implements ICommands {
                 prevSelected.add(s);
             }
         }
-        //System.out.println("objects selected -> " + selectedList.size());
     }
 
 }

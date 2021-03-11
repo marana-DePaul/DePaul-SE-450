@@ -1,7 +1,7 @@
 package main;
 
 import main.interfaces.*;
-import model.ShapeType;
+
 import model.interfaces.IApplicationState;
 
 import java.util.List;
@@ -19,9 +19,10 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
     @Override
     public void run() {
+        IShapesFactory factory = new ShapesFactory(appState);
         List<IShapes> selected = SharedContainers.getInstance().getSelectList();
         List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
-        GroupShape groups = SharedContainers.getInstance().getGroupShape();
+        //GroupShape groups = SharedContainers.getInstance().getGroupShape();
         IPoints topLeft;
         IPoints bottomRight;
 
@@ -36,7 +37,11 @@ public class GroupCommand implements ICommands, IUndoRedo {
             selected.remove(s);
         }
 
+        // calculating coordinates for the start and end points of group box
         for (IShapes s : selected) {
+            // add to group
+            //groups.addChild(s);
+
             int lowX = Math.min(s.getStart().get_x(), s.getEnd().get_x());
             int lowY = Math.min(s.getStart().get_y(), s.getEnd().get_y());
             int highX = Math.max(s.getStart().get_x(), s.getEnd().get_x());
@@ -57,12 +62,17 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
         topLeft = new PointCoord(x1 - 5,y1 - 5);
         bottomRight = new PointCoord(x2 + 5,y2 + 5);
+        IShapes groupShape = factory.createGroup(topLeft,bottomRight);
 
-        // creating group by rectangle shape
-        IShapesFactory factory = new ShapesFactory(appState);
-        IShapes outline = factory.createOutline(topLeft,bottomRight,ShapeType.RECTANGLE);
 
-        shapesRepo.addShape(outline);
+        //IShapes outline = factory.createOutline(topLeft,bottomRight,ShapeType.RECTANGLE);
+
+
+
+
+
+        //shapesRepo.addShape(outline);
+        //groups.addChild(outline);
         CommandHistory.add(this);
     }
 

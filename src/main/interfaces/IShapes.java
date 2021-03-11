@@ -23,6 +23,8 @@ public interface IShapes {
 
     IDrawStrategy getShapeStrategy();
 
+    int getSize();
+
     void copyShape();
 
     void pasteShape();

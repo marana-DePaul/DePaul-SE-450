@@ -28,16 +28,18 @@ public class GenericShape implements IShapes {
         this.shapeStrategy  = strategy;
     }
 
-    public GenericShape() {
-        start = new PointCoord(100,100);
-        end   = new PointCoord(400,400);
-        shapeType = ShapeType.RECTANGLE;
-        primaryColor = ShapeColor.GREEN;
-        secondaryColor = ShapeColor.ORANGE;
-        shadingType = ShapeShadingType.FILLED_IN;
-        shapeStrategy = new RectangleStrategy();
+    // shape is an outline using given strategy
+    public GenericShape(IPoints start, IPoints end, IDrawStrategy strategy) {
+        this.start = new PointCoord(start);
+        this.end   = new PointCoord(end);
+        shapeType  = null;
+        primaryColor   = null;
+        secondaryColor = null;
+        shadingType    = null;
+        this.shapeStrategy = strategy;
     }
 
+    // shape with identical attributes of given shape
     public GenericShape(IPoints start, IPoints end, IShapes shape) {
         this.start = new PointCoord(start);
         this.end = new PointCoord(end);
@@ -48,23 +50,15 @@ public class GenericShape implements IShapes {
         this.shapeStrategy = shape.getShapeStrategy();
     }
 
-    public GenericShape(IPoints start, IPoints end, IShapes shape, IDrawStrategy strategy) {
-        this.start = new PointCoord(start);
-        this.end = new PointCoord(end);
-        this.shapeType = shape.getShapeType();
-        this.primaryColor = shape.getPrimaryColor();
-        this.secondaryColor = shape.getSecondaryColor();
-        this.shadingType = shape.getShadingType();
-        this.shapeStrategy = strategy;
-    }
-
-
     @Override
     public void drawShape(PaintCanvasBase canvasBase) {
         if (canvasBase == null)
             throw new IllegalArgumentException();
 
-        shapeStrategy.drawShapeType(start, end, shadingType, primaryColor, secondaryColor, canvasBase);
+        if (primaryColor == null)
+            shapeStrategy.drawShapeType(start, end, canvasBase);
+        else
+            shapeStrategy.drawShapeType(start, end, shadingType, primaryColor, secondaryColor, canvasBase);
     }
 
     @Override
@@ -92,7 +86,9 @@ public class GenericShape implements IShapes {
     @Override
     public IDrawStrategy getShapeStrategy() {return  shapeStrategy;}
 
-    /* IGroupComponent methods */
+    @Override
+    public int getSize() { return 1;}
+
     @Override
     public void copyShape() {}
 

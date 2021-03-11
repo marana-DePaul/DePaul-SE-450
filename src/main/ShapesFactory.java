@@ -1,11 +1,9 @@
 package main;
 
-import main.interfaces.IDrawStrategy;
 import main.interfaces.IPoints;
 import main.interfaces.IShapes;
 import main.interfaces.IShapesFactory;
-import model.MouseMode;
-import model.ShapeType;
+
 import model.interfaces.IApplicationState;
 
 public class ShapesFactory implements IShapesFactory {
@@ -16,47 +14,28 @@ public class ShapesFactory implements IShapesFactory {
     }
 
     @Override
-    public IShapes createRectangle(IPoints startPt, IPoints endPt, IApplicationState appState) {
+    public IShapes createRectangle(IPoints startPt, IPoints endPt) {
         return new GenericShape(startPt, endPt, appState, new RectangleStrategy());
     }
 
     @Override
-    public IShapes createTriangle(IPoints startPt, IPoints endPt, IApplicationState appState) {
+    public IShapes createTriangle(IPoints startPt, IPoints endPt) {
         return new GenericShape(startPt, endPt, appState, new TriangleStrategy());
     }
 
     @Override
-    public IShapes createEllipse(IPoints startPt, IPoints endPt, IApplicationState appState) {
+    public IShapes createEllipse(IPoints startPt, IPoints endPt) {
         return new GenericShape(startPt, endPt, appState, new EllipseStrategy());
     }
 
     @Override
-    public IShapes createOutline(IPoints startPt, IPoints endPt, IShapes shape) {
-        IDrawStrategy strategy = shape.getShapeStrategy();
-
-        if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            if (shape.getShapeType() == ShapeType.RECTANGLE)
-                strategy = new RectangleOutlineStrategy();
-            else if (shape.getShapeType() == ShapeType.TRIANGLE)
-                strategy = new TriangleOutlineStrategy();
-            else if (shape.getShapeType() == ShapeType.ELLIPSE)
-                strategy = new EllipseOutlineStrategy();
-        }
-
-        return new GenericShape(startPt, endPt, shape, strategy);
+    public IShapes createGroup(IPoints startPt, IPoints endPt) {
+        return new GroupShape(startPt, endPt, new RectangleStrategy());
     }
 
     @Override
-    public IShapes createOutline(IPoints startPt, IPoints endPt, ShapeType x) {
-        IDrawStrategy strategy = null;
-
-        if (x == ShapeType.RECTANGLE)
-            strategy = new RectangleOutlineStrategy();
-        else if (x == ShapeType.TRIANGLE)
-            strategy = new TriangleOutlineStrategy();
-        else if (x == ShapeType.ELLIPSE)
-            strategy = new EllipseOutlineStrategy();
-
-        return new GenericShape(startPt, endPt, appState, strategy);
+    public IShapes createOutlineCopy(IPoints startPt, IPoints endPt, IShapes shape) {
+        return new GenericShape(startPt, endPt, shape.getShapeStrategy());
     }
+
 }

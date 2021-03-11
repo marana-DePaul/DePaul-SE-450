@@ -27,7 +27,6 @@ public class PasteCommand implements ICommands, IUndoRedo {
             shapesRepo.addShape(copiedShape);
         }
 
-        //System.out.println("Shapes copied -> " + shapesRepo.getNumItems());
         CommandHistory.add(this);
     }
 
@@ -42,7 +41,6 @@ public class PasteCommand implements ICommands, IUndoRedo {
 
         for (IShapes s : tmp)
             shapesRepo.removeShape(s);
-
     }
 
     @Override
@@ -54,7 +52,6 @@ public class PasteCommand implements ICommands, IUndoRedo {
             IShapes copiedShape = new GenericShape(startPt, endPt, x);
 
             shapesRepo.addShape(copiedShape);
-            //System.out.println("Shapes copied -> " + shapesRepo.getNumItems());
         }
 
     }
