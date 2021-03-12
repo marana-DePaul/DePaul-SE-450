@@ -19,6 +19,7 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
     @Override
     public void run() {
+        /*
         IShapesFactory factory = new ShapesFactory(appState);
         List<IShapes> selected = SharedContainers.getInstance().getSelectList();
         List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
@@ -64,7 +65,7 @@ public class GroupCommand implements ICommands, IUndoRedo {
         for (IShapes s : selected)
             group.addChild(s);
 
-        shapesRepo.addShape(group);
+        shapesRepo.addShape(group); */
         CommandHistory.add(this);
     }
 

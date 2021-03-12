@@ -52,8 +52,11 @@ public class SelectShapeProxy implements ICommands {
         if (selectList.isEmpty()) {
             List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
 
-            for (IShapes s : outlines)
+            for (IShapes s : outlines) {
                 shapesRepo.removeShape(s);
+            }
+
+            outlines.clear();
         }
 
     }

@@ -5,6 +5,8 @@ import model.MouseMode;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
 
+import java.util.List;
+
 public class CreateShapeCommand implements ICommands, IUndoRedo {
     private final IPoints startPt;
     private final IPoints endPt;
@@ -47,8 +49,11 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
             else if (appState.getActiveShapeType() == ShapeType.ELLIPSE)
                 createdShape = shapeFactory.createEllipse(startPt, endPt);
         }
-        else
+        else {
+            List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
             createdShape = shapeFactory.createOutlineCopy(startPt, endPt, inShape);
+            outlines.add(createdShape);
+        }
 
         // if in select mode, add it to the seleted List
         if (appState.getActiveMouseMode() == MouseMode.SELECT) {
