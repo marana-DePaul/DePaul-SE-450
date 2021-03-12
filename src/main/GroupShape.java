@@ -31,12 +31,13 @@ public class GroupShape implements IShapes {
     }
 
     public int getSize() {
-        int total = 0;
+        /*int total = 0;
 
         for (IShapes s : children)
             total += s.getSize();
 
-        return total;
+        return total; */
+        return children.size();
     }
 
     @Override

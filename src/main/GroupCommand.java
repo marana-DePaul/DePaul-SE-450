@@ -4,6 +4,7 @@ import main.interfaces.*;
 
 import model.interfaces.IApplicationState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupCommand implements ICommands, IUndoRedo {
@@ -19,10 +20,10 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
     @Override
     public void run() {
-        /*
         IShapesFactory factory = new ShapesFactory(appState);
         List<IShapes> selected = SharedContainers.getInstance().getSelectList();
         List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
+        List<IShapes> tmp = new ArrayList<>();
         IPoints topLeft;
         IPoints bottomRight;
 
@@ -31,11 +32,18 @@ public class GroupCommand implements ICommands, IUndoRedo {
         int x2 = Integer.MIN_VALUE;
         int y2 = Integer.MIN_VALUE;
 
+        for (IShapes s : outlines)
+            tmp.add(s);
+
         // deleting old outlines
-        for (IShapes s : outlines) {
+        for (IShapes s : tmp) {
             shapesRepo.removeShape(s);
+            outlines.remove(s);
             selected.remove(s);
         }
+
+        System.out.println("shaperepo-> "+shapesRepo.getNumItems());
+        System.out.println("outlines -> "+outlines.size());
 
         // calculating coordinates for the start and end points of group box
         for (IShapes s : selected) {
@@ -59,13 +67,22 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
         topLeft = new PointCoord(x1 - 5,y1 - 5);
         bottomRight = new PointCoord(x2 + 5,y2 + 5);
-        IShapes group = factory.createGroup(topLeft,bottomRight);
+        IShapes group = factory.createGroup(topLeft, bottomRight);
+
+
+        for (IShapes s : selected) {
+            tmp.add(s);
+        }
 
         // add in selected shapes to the group
-        for (IShapes s : selected)
+        for (IShapes s : tmp) {
             group.addChild(s);
+            shapesRepo.removeShape(s);
+        }
 
-        shapesRepo.addShape(group); */
+        shapesRepo.addShape(group);
+
+        System.out.println("num items in group-> "+group.getSize());
         CommandHistory.add(this);
     }
 
