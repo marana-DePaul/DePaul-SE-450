@@ -11,4 +11,6 @@ public interface IShapesFactory {
 
     IShapes createOutlineCopy(IPoints startPt, IPoints endPt, IShapes shape);
 
+    IShapes createOutline(IPoints startPt, IPoints endPt, IDrawStrategy strategy);
+
 }

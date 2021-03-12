@@ -87,6 +87,9 @@ public class GenericShape implements IShapes {
     public IDrawStrategy getShapeStrategy() {return  shapeStrategy;}
 
     @Override
+    public void addChild(IShapes shape) { };
+
+    @Override
     public int getSize() { return 1;}
 
     @Override

@@ -25,6 +25,7 @@ public class GroupShape implements IShapes {
         this.shapeStrategy = shapeStrategy;
     }
 
+    @Override
     public void addChild(IShapes shape) {
         children.add(shape);
     }
@@ -58,10 +59,7 @@ public class GroupShape implements IShapes {
         if (canvasBase == null)
             throw new IllegalArgumentException();
 
-
-
-
-        //shapeStrategy.drawShapeType(start, end, shadingType, primaryColor, secondaryColor, canvasBase);
+        shapeStrategy.drawShapeType(start, end, canvasBase);
     }
 
     @Override

@@ -14,13 +14,17 @@ public class CreateShapeCommand implements ICommands, IUndoRedo {
     private IShapes inShape;
 
     public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapesRepo) {
+        if (startPt == null || endPt == null || appState == null) throw new IllegalArgumentException();
+
         this.startPt = startPt;
         this.endPt = endPt;
         this.appState  = appState;
         this.shapesRepo = shapesRepo;
     }
-
+    
     public CreateShapeCommand(IPoints startPt, IPoints endPt, IApplicationState appState, IShapesRepository shapesRepo, IShapes s) {
+        if (startPt == null || endPt == null || appState == null || s == null) throw new IllegalArgumentException();
+
         this.startPt = startPt;
         this.endPt = endPt;
         this.appState = appState;

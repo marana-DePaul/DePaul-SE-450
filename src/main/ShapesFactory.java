@@ -1,5 +1,6 @@
 package main;
 
+import main.interfaces.IDrawStrategy;
 import main.interfaces.IPoints;
 import main.interfaces.IShapes;
 import main.interfaces.IShapesFactory;
@@ -36,6 +37,11 @@ public class ShapesFactory implements IShapesFactory {
     @Override
     public IShapes createOutlineCopy(IPoints startPt, IPoints endPt, IShapes shape) {
         return new GenericShape(startPt, endPt, shape.getShapeStrategy());
+    }
+
+    @Override
+    public IShapes createOutline(IPoints startPt, IPoints endPt, IDrawStrategy strategy) {
+        return new GenericShape(startPt, endPt, strategy);
     }
 
 }
