@@ -10,7 +10,6 @@ import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenericShape implements IShapes {

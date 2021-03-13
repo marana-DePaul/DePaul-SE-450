@@ -9,7 +9,7 @@ public class PointCoord implements IPoints {
     private final int y;
 
     public PointCoord(int xCoord, int yCoord) {
-        if (xCoord < 0 || yCoord < 0) throw new IllegalArgumentException("Cannot have negative coordinates");
+        if (xCoord < 0 || yCoord < 0) throw new IllegalArgumentException();
 
         this.x = xCoord;
         this.y = yCoord;

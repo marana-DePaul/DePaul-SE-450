@@ -40,7 +40,6 @@ public class GroupCommand implements ICommands, IUndoRedo {
             outlines.remove(s);
             selected.remove(s);
         }
-        //outlines.clear();
 
         // calculating coordinates for the start and end points of group box
         for (IShapes s : selected) {
