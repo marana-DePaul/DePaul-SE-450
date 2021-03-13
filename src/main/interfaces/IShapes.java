@@ -31,8 +31,6 @@ public interface IShapes {
 
     IShapes moveShape(int deltaX, int deltaY);
 
-    void groupShape();
-
     void unGroupShape(IShapesRepository shapesRepo);
 
 }

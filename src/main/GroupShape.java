@@ -59,9 +59,6 @@ public class GroupShape implements IShapes {
     }
 
     @Override
-    public void groupShape() {}
-
-    @Override
     public void unGroupShape(IShapesRepository shapesRepo) {
         for (IShapes s : children)
             s.unGroupShape(shapesRepo);

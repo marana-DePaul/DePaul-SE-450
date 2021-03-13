@@ -107,9 +107,6 @@ public class GenericShape implements IShapes {
     }
 
     @Override
-    public void groupShape() {}
-
-    @Override
     public void unGroupShape(IShapesRepository shapesRepo) {
         shapesRepo.addShape(this);
     }
