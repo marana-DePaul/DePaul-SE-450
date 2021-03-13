@@ -3,11 +3,15 @@ package main;
 import main.interfaces.IDrawStrategy;
 import main.interfaces.IPoints;
 import main.interfaces.IShapes;
+import main.interfaces.IShapesRepository;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenericShape implements IShapes {
     private final IPoints           start;
@@ -90,16 +94,17 @@ public class GenericShape implements IShapes {
     public void addChild(IShapes shape) { };
 
     @Override
-    public int getSize() { return 1;}
+    public void addToCopyList(List<IShapes> copyList) {
+        copyList.add(this);
+    }
 
     @Override
-    public void copyShape() {}
+    public IShapes moveShape(int deltaX, int deltaY) {
+        IPoints newStart   = new PointCoord(deltaX + start.get_x(), deltaY + start.get_y());
+        IPoints newEnd     = new PointCoord(deltaX + end.get_x(), deltaY + end.get_y());
 
-    @Override
-    public void pasteShape() {}
-
-    @Override
-    public void deleteShape() {}
+        return new GenericShape(newStart, newEnd, this);
+    }
 
     @Override
     public void groupShape() {}

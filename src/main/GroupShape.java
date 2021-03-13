@@ -4,6 +4,7 @@ package main;
 import main.interfaces.IDrawStrategy;
 import main.interfaces.IPoints;
 import main.interfaces.IShapes;
+import main.interfaces.IShapesRepository;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
@@ -30,18 +31,32 @@ public class GroupShape implements IShapes {
         children.add(shape);
     }
 
-    public int getSize() {
-        return children.size();
+    @Override
+    public void addToCopyList(List<IShapes> copyList) {
+        for (IShapes s : children)
+            copyList.add(s);
+
+        copyList.add(this);
     }
 
     @Override
-    public void copyShape() {}
+    public IShapes moveShape(int deltaX, int deltaY) {
+        List<IShapes> oldChildren = new ArrayList<>();
+        IPoints newStart = new PointCoord(deltaX + start.get_x(), deltaY + start.get_y());
+        IPoints newEnd   = new PointCoord(deltaX + end.get_x(), deltaY + end.get_y());
+        IShapes deltaGroup = new GroupShape(newStart, newEnd, shapeStrategy);
 
-    @Override
-    public void pasteShape() {}
+        for (IShapes s : children)
+            oldChildren.add(s);
 
-    @Override
-    public void deleteShape() {}
+        children.clear();
+
+        for (IShapes s : oldChildren) {
+            deltaGroup.addChild(s.moveShape(deltaX, deltaY));
+        }
+
+        return deltaGroup;
+    }
 
     @Override
     public void groupShape() {}

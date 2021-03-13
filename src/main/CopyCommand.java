@@ -15,7 +15,7 @@ public class CopyCommand implements ICommands {
         copyList.clear();
         // for every selected shape, add it to the copyList
         for (IShapes x : selectedList) {
-            copyList.add(x);
+            x.addToCopyList(copyList);
         }
     }
 }

@@ -5,6 +5,8 @@ import model.ShapeShadingType;
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
+import java.util.List;
+
 public interface IShapes {
 
     void drawShape(PaintCanvasBase canvasBase);
@@ -25,13 +27,9 @@ public interface IShapes {
 
     void addChild(IShapes shape);
 
-    int getSize();
+    void addToCopyList(List<IShapes> copyList);
 
-    void copyShape();
-
-    void pasteShape();
-
-    void deleteShape();
+    IShapes moveShape(int deltaX, int deltaY);
 
     void groupShape();
 
