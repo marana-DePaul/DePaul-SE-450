@@ -31,12 +31,6 @@ public class GroupShape implements IShapes {
     }
 
     public int getSize() {
-        /*int total = 0;
-
-        for (IShapes s : children)
-            total += s.getSize();
-
-        return total; */
         return children.size();
     }
 
@@ -60,16 +54,22 @@ public class GroupShape implements IShapes {
         if (canvasBase == null)
             throw new IllegalArgumentException();
 
+        for (IShapes s : children)
+            s.drawShape(canvasBase);
+
         shapeStrategy.drawShapeType(start, end, canvasBase);
     }
 
     @Override
-    public IPoints getStart() { return null; }
+    public IPoints getStart() { return this.start; }
 
     @Override
     public IPoints getEnd() {
-        return null;
+        return this.end;
     }
+
+    @Override
+    public IDrawStrategy getShapeStrategy() {return this.shapeStrategy;}
 
     @Override
     public ShapeType getShapeType() { return null; }
@@ -83,7 +83,5 @@ public class GroupShape implements IShapes {
     @Override
     public ShapeShadingType getShadingType() {return null;}
 
-    @Override
-    public IDrawStrategy getShapeStrategy() {return  null;}
 
 }

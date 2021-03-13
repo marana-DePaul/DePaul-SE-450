@@ -45,7 +45,6 @@ public class MouseHandler extends MouseAdapter {
         }
 
         else if (appState.getActiveMouseMode() == MouseMode.SELECT) {
-            System.out.println("in select mode");
             command = new SelectShapeProxy(startCoord,endCoord,selectList, appState, shapesRepo);
             command.run();
         }

@@ -8,6 +8,9 @@ public class CollisionStrategy implements ICollisionStrategy {
 
     @Override
     public boolean detectCollision(IPoints collStart, IPoints collEnd, IShapes shape) {
+        if (shape == null) throw new IllegalArgumentException();
+
+
         boolean status = false;
         boolean cond1 = false;
         boolean cond2 = false;

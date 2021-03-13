@@ -20,7 +20,7 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
     @Override
     public void run() {
-        IShapesFactory factory = new ShapesFactory(appState);
+        /*IShapesFactory factory = new ShapesFactory(appState);
         List<IShapes> selected = SharedContainers.getInstance().getSelectList();
         List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
         List<IShapes> tmp = new ArrayList<>();
@@ -83,7 +83,70 @@ public class GroupCommand implements ICommands, IUndoRedo {
         shapesRepo.addShape(group);
 
         System.out.println("num items in group-> "+group.getSize());
-        CommandHistory.add(this);
+        CommandHistory.add(this);*/
+
+
+        //----------------------------
+        IShapesFactory factory = new ShapesFactory(appState);
+        List<IShapes> selected = SharedContainers.getInstance().getSelectList();
+        List<IShapes> outlines = SharedContainers.getInstance().getOutlineList();
+        List<IShapes> outCopy = new ArrayList<>();
+        List<IShapes> selectCopy = new ArrayList<>();
+        int x1 = Integer.MAX_VALUE;
+        int y1 = Integer.MAX_VALUE;
+        int x2 = Integer.MIN_VALUE;
+        int y2 = Integer.MIN_VALUE;
+
+        for (IShapes s : outlines)
+            outCopy.add(s);
+
+        //delete outlines
+        for (IShapes s : outCopy) {
+            shapesRepo.removeShape(s);
+            outlines.remove(s);
+            selected.remove(s);
+        }
+        //outlines.clear();
+
+        // calculating coordinates for the start and end points of group box
+        for (IShapes s : selected) {
+            selectCopy.add(s);
+
+            int lowX = Math.min(s.getStart().get_x(), s.getEnd().get_x());
+            int lowY = Math.min(s.getStart().get_y(), s.getEnd().get_y());
+            int highX = Math.max(s.getStart().get_x(), s.getEnd().get_x());
+            int highY = Math.max(s.getStart().get_y(), s.getEnd().get_y());
+
+            if (lowX < x1)
+                x1 = lowX;
+
+            if (lowY < y1)
+                y1 = lowY;
+
+            if (highX > x2)
+                x2 = highX;
+
+            if (highY > y2)
+                y2 = highY;
+        }
+
+        IPoints topLeft = new PointCoord(x1-5, y1-5);
+        IPoints bottomRight = new PointCoord(x2+5, y2+5);
+        IShapes group = factory.createGroup(new PointCoord(topLeft), new PointCoord(bottomRight));
+
+        for (IShapes s : selectCopy) {
+            group.addChild(s);
+            shapesRepo.removeShape(s);
+            selected.remove(s);
+        }
+
+        shapesRepo.addShape(group);
+
+        System.out.println("num in selected-> "+selected.size());
+        System.out.println("num in outlines-> "+outlines.size());
+        System.out.println("num in repo-> "+shapesRepo.getNumItems());
+        System.out.println("num in group-> "+group.getSize());
+        System.out.println("at end of groupCommand");
     }
 
     @Override

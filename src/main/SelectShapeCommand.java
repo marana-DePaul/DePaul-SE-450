@@ -8,7 +8,7 @@ public class SelectShapeCommand implements ICommands {
     private final IPoints collStart;
     private final IPoints collEnd;
     private final List<IShapes> selectedList;
-    private final IShapesRepository shapesList;
+    private final IShapesRepository shapesRepo;
 
     public SelectShapeCommand(IPoints startPt, IPoints endPt, List<IShapes> current, IShapesRepository shapesList) {
         if (current == null || shapesList == null) throw new IllegalArgumentException();
@@ -16,7 +16,7 @@ public class SelectShapeCommand implements ICommands {
         this.collStart = startPt;
         this.collEnd = endPt;
         this.selectedList = current;
-        this.shapesList = shapesList;
+        this.shapesRepo = shapesList;
     }
 
     @Override
@@ -24,13 +24,15 @@ public class SelectShapeCommand implements ICommands {
         // clearing selectedList
         selectedList.clear();
 
-        List<IShapes> copy = shapesList.getShapeList();
+        List<IShapes> copy = shapesRepo.getShapeList();
         List<IShapes> prevSelected = SharedContainers.getInstance().getPrevSelectList();
         ICollisionStrategy collision = new CollisionStrategy();
 
         // check the shapes in the repository to see if they were selected; if so add to selectedList
         for (IShapes s : copy) {
-            if (collision.detectCollision(collStart,collEnd,s)) {
+            boolean status = collision.detectCollision(collStart,collEnd,s);
+
+            if (status) {
                 selectedList.add(s);
 
                 // add shape to the previously selected list
