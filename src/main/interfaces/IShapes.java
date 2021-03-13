@@ -33,6 +33,6 @@ public interface IShapes {
 
     void groupShape();
 
-    void unGroupShape();
+    void unGroupShape(IShapesRepository shapesRepo);
 
 }

@@ -3,7 +3,10 @@ package main;
 import main.interfaces.ICommands;
 
 
+import main.interfaces.IShapes;
 import main.interfaces.IShapesRepository;
+
+import java.util.List;
 
 
 public class UnGroupCommand implements ICommands {
@@ -13,17 +16,21 @@ public class UnGroupCommand implements ICommands {
         this.shapeRepo = shapeRepo;
     }
 
-
     @Override
     public void run () {
+        List<IShapes> selected  = SharedContainers.getInstance().getSelectList();
+        List<IShapes> groupList = SharedContainers.getInstance().getGroupList();
 
-        System.out.println("Clicked on UnGroup");
-        System.out.println("Num in repo-> "+ shapeRepo.getNumItems());
-        System.out.println("Num in selectlist-> "+SharedContainers.getInstance().getSelectList().size());
-        System.out.println("Num in prevSelect-> "+SharedContainers.getInstance().getPrevSelectList().size());
-        System.out.println("Num in copylist-> "+SharedContainers.getInstance().getCopyList().size());
-        System.out.println("Num in outlinelist-> "+SharedContainers.getInstance().getOutlineList().size());
+        if (selected.isEmpty()) return;
 
+        // any selected shapes that are grouped will no longer be grouped
+        for (IShapes s : selected) {
+            s.unGroupShape(shapeRepo);
+            groupList.remove(s);
+        }
+
+
+        // if a group has groups inside, delete outer most one
 
     }
 }

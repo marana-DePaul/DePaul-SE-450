@@ -10,6 +10,7 @@ import java.util.List;
 public class GroupCommand implements ICommands, IUndoRedo {
     private final IShapesRepository shapesRepo;
     private final IApplicationState appState;
+    private IShapes createdShape;
 
     public GroupCommand (IShapesRepository shapeRepo, IApplicationState appState) {
         if (shapeRepo == null) throw new IllegalArgumentException();
@@ -65,26 +66,30 @@ public class GroupCommand implements ICommands, IUndoRedo {
 
         IPoints topLeft = new PointCoord(x1-5, y1-5);
         IPoints bottomRight = new PointCoord(x2+5, y2+5);
-        IShapes group = factory.createGroup(new PointCoord(topLeft), new PointCoord(bottomRight));
+        createdShape = factory.createGroup(new PointCoord(topLeft), new PointCoord(bottomRight));
 
         for (IShapes s : selectCopy) {
-            group.addChild(s);
+            createdShape.addChild(s);
             shapesRepo.removeShape(s);
             selected.remove(s);
         }
-
-        shapesRepo.addShape(group);
+        
+        SharedContainers.getInstance().getGroupList().add(createdShape);
+        shapesRepo.addShape(createdShape);
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-
+        createdShape.unGroupShape(shapesRepo);
+        SharedContainers.getInstance().getGroupList().remove(createdShape);
+        shapesRepo.removeShape(createdShape);
     }
 
     @Override
     public void redo() {
-
+        shapesRepo.addShape(createdShape);
+        SharedContainers.getInstance().getGroupList().add(createdShape);
     }
 
 }
