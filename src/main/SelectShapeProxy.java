@@ -15,7 +15,7 @@ public class SelectShapeProxy implements ICommands {
     public SelectShapeProxy (IPoints startPt, IPoints endPt, List<IShapes> currentSelect, IApplicationState appState, IShapesRepository shapesRepo) {
         if (currentSelect == null || shapesRepo == null || appState == null) throw new IllegalArgumentException();
 
-        selectCmd = new SelectShapeCommand(startPt,endPt,currentSelect,shapesRepo);
+        selectCmd = new SelectShapeCommand(startPt,endPt,currentSelect,shapesRepo, new CollisionStrategy());
         this.selectList = currentSelect;
         this.appState = appState;
         this.shapesRepo = shapesRepo;
